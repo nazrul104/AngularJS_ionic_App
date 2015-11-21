@@ -1,0 +1,76 @@
+     <ion-view title="Order Confirmation">
+        <ion-content>
+
+        <div class="card cartCard">
+  <div class="item item-divider cartHeader"><i class="ion-ios7-cart"></i>&nbsp;Oreder confirmation in details</div>
+  <div class="item item-text-wrap cartView">
+
+    <h2 style="color:#fff" ng-if="paypal_transection_id==''">
+     
+              <div class="item item-text-wrap">
+                 <h3>Thank you for your order with us, an email has been sent with your order details.</h3>
+             <div class="list">
+
+               <a class="item item" href="#" ng-repeat="item in orderdetails.order" ng-if="item.msg">   
+                <div class="item item-text-wrap">
+                  <i class="icon ion-alert-circled" style="font-size:36px"></i> {{item.msg}}
+                </div>
+              </a>
+            </div>
+              <div ng-repeat="item in orderdetails.order">
+             <ul class="list"  ng-if="item.order_no">
+                <li class="item" style="padding:1px">{{item.order_policy.policy[0].policy_name}} Date: {{item.order_date}}</li>
+                <li class="item" style="padding:1px">Payment Method:{{item.payment_method}}</li>
+                <li class="item" style="padding:1px">Order Policy:{{item.order_policy.policy[0].policy_name}}</li>
+                <li class="item" style="padding:1px">Payment status :{{item.payment_status}}</li>  
+            </ul>
+          <table style="width:100%"  ng-if="item.ordered_dish">
+            <thead>
+              <tr>
+                <th>Qt</th>
+                <th>Dish Name</th>
+                <th>Price</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="order_item in item.ordered_dish.dish_choose">
+                    <th>{{order_item.quantity}}</th>
+                    <th>{{order_item.dish_name}}</th>
+                    <th>&pound;{{order_item.dish_price}}</th>
+                  <th></th>
+                </tr>
+                <tr ng-if="offers" ng-repeat="offItem in offers">
+                    <td><img src="{{offItem.image}}" style="width:25px;height:25px"></td>
+                    <td>{{offItem.offer_title}}</td>
+                    <td class="button button-small button-assertive" ng-click="DoAccept(1,offItem.offer_title)">Accept</td>
+                    <td>    
+                    </td>
+                </tr>
+                  <tr ng-if="discounts" ng-repeat="disItem in discounts">
+                    <td><img src="{{offItem.e.image}}" style="width:25px;height:25px"></td>
+                    <td> {{disItem.discount_title}}</td>
+                    <td class="button button-small button-assertive" ng-click="DoAccept(2,'')">Accept</td>
+                    <td>
+                       
+                    </td>
+                </tr>
+            </tbody>  
+            <tfoot>
+                <tr><td colspan="5"></td></tr>
+            </tfoot>
+        </table>
+        </div>
+         <div class="item item-divider">
+         <span ng-if="grand_total">Total amount: &pound;{{grand_total}}</span> 
+        </div>
+      </div>
+  </h2>
+           
+     <h2 style="color:#fff" ng-if="paypal_transection_id">
+      Thank you for your order with us.If paypal order processing is cancelled or failed,please click button to back to cart.
+    </h2>
+  </div>
+</div>
+        </ion-content>
+      </ion-view>

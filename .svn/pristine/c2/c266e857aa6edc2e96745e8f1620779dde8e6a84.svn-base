@@ -1,0 +1,1438 @@
+/*******Author N@zrul; May 2015*******/
+angular.module('ionicApp.controllers', ['pickadate'])
+
+.controller('NavCtrl', function($scope, $ionicSideMenuDelegate,$ionicModal, basket) 
+{
+    $scope.showMenu = function ()
+     {
+      $ionicSideMenuDelegate.toggleLeft();
+    };
+    $scope.showRightMenu = function () 
+    {
+      $ionicSideMenuDelegate.toggleRight();
+    };
+    /*show modal*/
+  $ionicModal.fromTemplateUrl('templates/right_menu.html',
+   {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+    // Triggered in the login modal to close it
+  $scope.closeLogin = function() {
+    $scope.modal.hide();
+  };
+  // Open the login modal
+  $scope.showmodal = function() {
+    $scope.modal.show();
+  };
+/*end of modal part*/
+})
+.controller('Navleft', function($scope, $ionicSideMenuDelegate,$ionicModal,$http, basket) 
+{
+    $http.get(basket.CMS_API()+'config.php?x=LeftNavigation',{cache:true}).
+    success(function(data, status, headers, config)
+     {
+        $scope.menu=data;
+     }).
+     error(function(data, status, headers, config)
+     {
+     
+    });
+})
+.controller('HomeTabCtrl', function($scope, basket,$stateParams,$http, $ionicSideMenuDelegate, $ionicPopup, $timeout) 
+{
+
+var temp="";
+ // Triggered on a button click, or some other target
+ $scope.showPopup = function() {
+ /*  $scope.data = {}*/
+  $http.get(basket.API()+'Tigger.php?funId=2&rest_id='+basket.REST_ID(),{cache:true}).
+   success(function(data, status, headers, config) 
+   {
+    var t='';
+    t+='<div class="list">';
+     $scope.datalist=data.app; 
+     $scope.datalist.forEach(function(e, i){
+        e.offer.offer_list.forEach(function(element, index){
+        //  temp+=element.description;
+        t+='<a class="item item-avatar" href="#"><img style="width:60px" src='+element.thumb_name+'> <h2>'+element.offer_title+'</h2><p>'+element.description+'</p></a>';
+        console.log(element.description);
+        });
+     });
+     t+='</div>';
+        // An elaborate, custom popup
+   var myPopup = $ionicPopup.show({
+     template:t ,
+     title: 'Special Offers!',
+     subTitle: 'Please use normal things',
+     scope: $scope,
+     buttons: [
+       { text: 'Cancel' }
+     ]
+   });
+   myPopup.then(function(res) {
+     console.log('Tapped!', res);
+   });
+   $timeout(function() {
+      myPopup.close(); //close the popup after 3 seconds for some reason
+   }, 4000);
+  }).
+  error(function(data, status, headers, config)
+   {
+
+  });
+
+
+  };
+   // A confirm dialog
+   $scope.showConfirm = function() {
+     var confirmPopup = $ionicPopup.confirm({
+       title: 'Consume Ice Cream',
+       template: 'Are you sure you want to eat this ice cream?'
+     });
+     confirmPopup.then(function(res) {
+       if(res) {
+         console.log('You are sure');
+       } else {
+         console.log('You are not sure');
+       }
+     });
+   };
+
+   // An alert dialog
+   $scope.showAlert = function() {
+     var alertPopup = $ionicPopup.alert({
+       title: 'Don\'t eat that!',
+       template: 'It might taste good'
+     });
+     alertPopup.then(function(res) {
+       console.log('Thank you for not eating my delicious ice cream cone');
+     });
+   };
+  if($ionicSideMenuDelegate.isOpenRight()===true)
+  {
+    
+  } 
+     $scope.page={}
+     $scope.pageTitle="";
+     var element = angular.element(document.querySelector('#mymenu'));
+     $scope.isLogged=basket.isLoggedIn();
+     if(angular.equals($scope.isLogged,"true")==true)
+     {
+      element.html(createHTML_1());
+
+     }
+      if(angular.equals($scope.isLogged,"true")==false){
+      element.html(createHTML_0());
+     }
+
+ var cms_page = angular.element(document.querySelector('#pagecontent'));
+ var home_page = angular.element(document.querySelector('#homePageContent'));
+
+
+   $http.get(basket.CMS_API()+'config.php?x=HomePage',{cache:true}).
+    success(function(data, status, headers, config)
+    {
+       // $scope.data=data;     
+       home_page.html(data);
+    }).
+     error(function(data, status, headers, config)
+     {
+     
+    });
+
+ $http.get(basket.CMS_API()+'config.php?x=GetPageContent&rid='+$stateParams.id,{cache:true}).
+    success(function(data, status, headers, config)
+    {
+       // $scope.data=data;     
+       cms_page.html(data);
+    }).
+     error(function(data, status, headers, config)
+     {
+     
+    });
+
+})
+
+.controller('OrderOnlineTabCtrl', function($scope,$http, $ionicPopup,$ionicModal, $timeout,$ionicSlideBoxDelegate, $location, $ionicLoading,basket,$filter, $ionicSideMenuDelegate)
+ {
+   $scope.message='';
+   $scope.slider=[];
+   var css = angular.element(document.querySelector('#mystyle'));
+   $http.get(basket.CMS_API()+'config.php?x=MobileCMSSetting').success(function(data){
+    css.html(data);
+    basket.setConfiguration(1);
+   });
+   
+  /*###########Create Right Menu##########*/
+    var element = angular.element(document.querySelector('#mymenu'));
+     $scope.isLogged=basket.isLoggedIn();
+     if(angular.equals($scope.isLogged,"true")==true)
+     {
+      element.html(createHTML_1());
+     }
+      if(angular.equals($scope.isLogged,"true")==false){
+      element.html(createHTML_0());
+     }
+  /*end*/
+
+  /*Restuarent setting*/
+  if (!window.localStorage.getItem("Rsetting")) {
+      $http.get(basket.API()+'Tigger.php?funId=19&rest_id='+basket.REST_ID(),{cache:true}).success(function(data, status, headers, config)
+      {
+         window.localStorage.setItem("Rsetting",JSON.stringify(data.app[0]));
+         $scope.setting=JSON.parse(window.localStorage.getItem("Rsetting"));  
+         basket.setBuzTel($scope.setting.business_tel);
+      });
+    }else{
+      $scope.setting=JSON.parse(window.localStorage.getItem("Rsetting"));
+       basket.setBuzTel($scope.setting.business_tel);
+       var logo = angular.element(document.querySelector('#logo'));
+      logo.html('<img src='+$scope.setting.logo+' style="width:100px;height:50px">');
+      var sliderImage=$scope.setting.slider_image;
+      //console.log(sliderImage);
+      var splitImages=sliderImage.split(',');
+      splitImages.forEach(function(element, index){
+      $scope.slider.push(element);
+      });
+       $scope.bizzTel=$scope.setting.business_tel;
+    }
+  /*end*/
+   $scope.cart=[];
+   $ionicLoading.show({
+      template: 'Loading...'
+    });
+    $http.get(basket.API()+'Tigger.php?funId=19&rest_id='+basket.REST_ID(),{cache:true}).
+    success(function(data, status, headers, config) { 
+    $ionicLoading.hide();
+    $scope.datalist=data.app; 
+    window.localStorage.setItem("policy",JSON.stringify(data.app[0].order_policy.policy));
+    if (data.app[0].discount.status==1) {
+        window.localStorage.setItem("discount",JSON.stringify(data.app[0].discount.off));
+    };
+    if (data.app[0].offer.status==1&&basket.popup_data()==0) {
+      window.localStorage.setItem("offer",JSON.stringify(data.app[0].offer.offer_list));
+
+    var t='';
+    t+='<div class="list">';
+     $scope.datalist=data.app; 
+     $scope.datalist.forEach(function(e, i){
+        e.offer.offer_list.forEach(function(element, index){
+        //  temp+=element.description;
+        t+='<a class="item item-avatar" href="#"><img style="width:60px" src='+element.thumb_name+'> <h2>'+element.offer_title+'</h2><p>'+element.description+'</p></a>';
+        console.log(element.description);
+        });
+     });
+     t+='</div>';
+        // An elaborate, custom popup
+   var myPopup = $ionicPopup.show({
+     template:t ,
+     title: 'Special Offers!',
+     subTitle: 'Please use normal things',
+     scope: $scope,
+     buttons: [
+       { text: 'Cancel' }
+     ]
+   });
+   myPopup.then(function(res) {
+     console.log('Tapped!', res);
+   });
+   $timeout(function() {
+      myPopup.close(); //close the popup after 3 seconds for some reason
+   }, 4000);
+    basket.POPUP();
+ }
+
+  }).
+  error(function(data, status, headers, config)
+   {
+          $scope.networkerror=1;
+              var alertPopup = $ionicPopup.alert({
+                 title: 'Alert!',
+                 template: data+" "+status
+               });
+               alertPopup.then(function(res) {
+                 console.log('Exception!'+status);
+               });
+   $ionicLoading.hide();
+  });
+$scope.alergensInfo=function(i)
+{
+  $scope.datalist.forEach(function(element, index){
+    statements
+  });
+}
+/*push item in cart*/
+$scope.addItemInCart=function(item_id,item_name,item_price)
+{
+    $scope.qty=1;
+    $scope.session_id='';
+    $scope.session_id=window.localStorage.getItem("session_id");
+
+    $ionicLoading.show({
+        template: 'Loading...'
+      });
+    $http.post(basket.CMS_API()+'config.php?x=CartProcess&session_id='+$scope.session_id+'&item_id='+item_id+'&item_name='+item_name+'&item_qty='+$scope.qty+'&item_price='+item_price).
+    success(function(data, status, headers, config) 
+    {
+    console.log(data);
+       $ionicLoading.hide();
+        if (data.status=="success")
+        {
+         window.localStorage.setItem("session_id",data.session_id);
+        };
+          $scope.session_id=window.localStorage.getItem("session_id");
+          $http.post(basket.CMS_API()+'config.php?x=ShowCartData&session_id='+$scope.session_id).
+          success(function(data, status, headers, config) 
+          {
+              window.localStorage.setItem('total_amount',data.total_amount);
+            
+              $scope.total_item=parseFloat(data.total_item);
+              var element = angular.element(document.querySelector('#mycart-item'));
+              element.html($scope.total_item);
+          }).
+          error(function(data, status, headers, config)
+          {
+              $ionicLoading.hide();
+               var alertPopup = $ionicPopup.alert({
+                 title: 'Alert!',
+                 template: data+" "+status
+               });
+               alertPopup.then(function(res) {
+                 console.log('Exception!'+status);
+               });
+          });
+    }).
+    error(function(data, status, headers, config)
+    {
+     $ionicLoading.hide();
+               var alertPopup = $ionicPopup.alert({
+                 title: 'Alert!',
+                 template: data+" "+status
+               });
+               alertPopup.then(function(res) {
+                 console.log('Exception!'+status);
+               });
+    });
+}
+/*end*/
+
+/*Item list toggle*/
+   $scope.toggleGroup = function(group)
+    {
+      if ($scope.isGroupShown(group)) 
+      {
+        $scope.shownGroup = null;
+      } 
+      else
+      {
+        $scope.shownGroup = group;
+      }
+    };
+  $scope.isGroupShown = function(group) {
+    return $scope.shownGroup === group;
+  };
+ /*end*/
+
+/*show modal*/
+  $ionicModal.fromTemplateUrl('templates/my-modal.html',
+   {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+    // Triggered in the login modal to close it
+  $scope.closeLogin = function() {
+    $scope.modal.hide();
+  };
+
+  // Open the login modal
+  $scope.showmodal = function() {
+    $scope.modal.show();
+  };
+  /*modal for selecting option*/
+    $ionicModal.fromTemplateUrl('templates/modal-option.html',
+   {
+    scope: $scope
+   }).then(function(modal) {
+    $scope.modal = modal;
+  });
+    // Triggered in the login modal to close it
+
+  $scope.closeOption = function() {
+    $scope.modal.hide();
+  };
+  // Open the login modal
+  $scope.showOption = function(option_id) {
+    $scope.option_item=[];
+    $scope.modal.show();
+    $scope.datalist.forEach(function(e, i){
+          e.category.forEach(function(element, index){
+            element.Dish_Information.ItemList.forEach(function(x, y){
+              if(x.Dish_id===option_id)
+              {
+                $scope.option_item.push(x.options.OptionList);
+                
+              }
+            });
+          });
+    });
+    console.log($scope.option_item[0].length);
+  };
+  
+
+
+/*###########show cart item number#########*/
+    $scope.session_id=window.localStorage.getItem("session_id");
+     $http.post(basket.CMS_API()+'config.php?x=ShowCartData&session_id='+$scope.session_id).
+  success(function(data, status, headers, config) 
+  {
+    $scope.total_item=parseFloat(data.total_item);
+      var element = angular.element(document.querySelector('#mycart-item'));
+      element.html($scope.total_item);
+  }).
+  error(function(data, status, headers, config)
+  {
+      $ionicLoading.hide();
+       var alertPopup = $ionicPopup.alert({
+                 title: 'Alert!',
+                 template: "Exception occured"
+               });
+               alertPopup.then(function(res) {
+                 console.log('Exception!'+status);
+               });
+  });
+
+  /*end*/
+})
+.controller('cart', function($scope,$http,$ionicPopup, $ionicModal, $timeout,$ionicSlideBoxDelegate, $location, $ionicLoading,basket,$ionicSideMenuDelegate) 
+{
+  if(basket.isConfigured()==0){
+    $location.path('/tab/menu');
+  }
+
+  $scope.session_id='';
+  $scope.my={};
+  $scope.total_amount=0.00;
+  $scope.grand_amount=0.00;
+  $scope.min_order=0.00;
+  $scope.session_id=window.localStorage.getItem("session_id");
+  $scope.isLogged=false;
+  $scope.datalist={};
+  $scope.dev_option="";
+  $scope.restTel=basket.getBuzTel();
+  $scope.user=JSON.parse(window.localStorage.getItem("UserDetails"));
+    /*###########Create Right Menu##########*/
+     var element = angular.element(document.querySelector('#mymenu'));
+     $scope.isLogged=basket.isLoggedIn();
+     if(angular.equals($scope.isLogged,"true")==true){
+     element.html(createHTML_1());
+     }
+      if(angular.equals($scope.isLogged,"true")==false){
+      element.html(createHTML_0());
+     }
+  /*end*/
+
+
+  if ($scope.user!=null)
+   {
+     $scope.my.address=$scope.user.address1;
+  }
+  $scope.policy=JSON.parse(window.localStorage.getItem("policy")); 
+
+  $ionicLoading.show({
+      template: 'Loading...'
+    });
+
+
+  $http.post(basket.CMS_API()+'config.php?x=ShowCartData&session_id='+$scope.session_id).
+  success(function(data, status, headers, config) 
+  {
+      $ionicLoading.hide();
+      $scope.restatus=data.status;
+      if(data.status==1)
+      {
+       $scope.total_amount=parseFloat(data.total_amount);
+       $scope.datalist=data.OrderList;
+       if(basket.GetDiscount()!=0){
+          $scope.grand_amount=data.total_amount-basket.GetDiscount();
+       $scope.obtained_discount=basket.GetDiscount();
+       }else{
+         
+       }
+      
+      }
+    
+  }).
+  error(function(data, status, headers, config)
+  {
+       $ionicLoading.hide();
+       var alertPopup = $ionicPopup.alert({
+                 title: 'Alert!',
+                 template: data+" "+status
+               });
+               alertPopup.then(function(res) {
+                 console.log('Exception!'+status);
+               });
+  });
+
+   $scope.removecartItem=function(cart_id,item_qty,item_price,single_price)
+   {
+        $scope.session_id=window.localStorage.getItem("session_id");
+        $http.post(basket.CMS_API()+'config.php?x=RemoveItemFromCart&session_id='+$scope.session_id+'&cart_id='+cart_id+'&item_qty='+item_qty+'&item_price='+item_price+'&single_price='+single_price).
+        success(function(data, status, headers, config) 
+        {
+          $scope.restatus=data.status;
+          $scope.total_amount=parseFloat(data.total_amount);
+          $scope.datalist=data.OrderList;
+           $scope.total_item=parseFloat(data.total_item);
+              var element = angular.element(document.querySelector('#mycart-item'));
+              element.html($scope.total_item);
+                window.localStorage.setItem('total_amount',data.total_amount);
+        }).
+        error(function(data, status, headers, config)
+        {
+           var alertPopup = $ionicPopup.alert({
+                 title: 'Alert!',
+                 template: data+" "+status
+               });
+               alertPopup.then(function(res) {
+                 console.log('Exception!'+status);
+               });
+        });
+   }
+       $ionicModal.fromTemplateUrl('templates/datemodal.html', 
+        function(modal) {
+            $scope.datemodal = modal;
+        },
+        {
+        scope: $scope, 
+        animation: 'slide-in-up'
+        }
+    );
+        /*offer*/
+       $scope.orderOffer=function(order_policy_id)
+       {
+       
+            $scope.offers=[];
+            if(window.localStorage.getItem("offer")){
+            $scope.offer=JSON.parse(window.localStorage.getItem("offer"));
+            if(window.localStorage.getItem("total_amount"))
+            {
+              $scope.total_amount=JSON.parse(window.localStorage.getItem("total_amount"));
+            
+            $scope.offer.forEach(function(e, i){
+              if(order_policy_id==e.restaurant_order_policy_id)
+              {
+                if ($scope.total_amount>=e.eligible_amount)
+                 {
+                  
+                  $scope.offers.push(e);  
+                 }
+              }
+            });
+
+            
+         }
+        }
+       } /*offerEnd*/
+       /*Discount function*/
+       $scope.orderDiscount=function(order_policy_id)
+       {
+
+             $scope.discounts=[];
+             if(window.localStorage.getItem("discount"))
+             {
+            $scope.discount=JSON.parse(window.localStorage.getItem("discount"));
+            $scope.total_amount=JSON.parse(window.localStorage.getItem("total_amount"));
+            $scope.discount.forEach(function(e, i){
+              console.log(e);
+              if(order_policy_id==e.restaurant_order_policy_id)
+              {
+                if ($scope.total_amount>=e.eligible_amount)
+                 {
+                    $scope.discounts.push(e);
+                 }
+              }
+            });
+          }
+       }
+       /*##End of discount##*/
+
+       $scope.DoAccept=function(acceptType,OfferText)
+       {
+        /*###
+              1=accepted offer;
+              2=accepted discount;
+        ###*/
+
+        if (acceptType==1 && OfferText!='') 
+        {
+
+                basket.SetOfferText(OfferText);
+                $scope.qty=1;
+                var item_id=0;
+                var item_price=0;
+                  $scope.session_id='';
+                  $scope.session_id=window.localStorage.getItem("session_id");
+
+                  $ionicLoading.show({
+                      template: 'wait...'
+                    });
+                  $http.post(basket.CMS_API()+'config.php?x=CartProcess&session_id='+$scope.session_id+'&item_id='+item_id+'&item_name='+OfferText+'&item_qty='+$scope.qty+'&item_price='+item_price).
+                  success(function(data, status, headers, config) 
+                  {
+                 
+                     $ionicLoading.hide();
+                      if (data.status=="success")
+                      {
+                        $scope.offers=[];
+                        window.localStorage.setItem("session_id",data.session_id);
+                      };
+                        $scope.session_id=window.localStorage.getItem("session_id");
+                        $http.post(basket.CMS_API()+'config.php?x=ShowCartData&session_id='+$scope.session_id).
+                        success(function(data, status, headers, config) 
+                        {
+                            window.localStorage.removeItem('total_amount');
+                            $scope.datalist=data.OrderList;
+                            $scope.total_item=parseFloat(data.total_item);
+                            var element = angular.element(document.querySelector('#mycart-item'));
+                            element.html($scope.total_item);
+                        }).
+                        error(function(data, status, headers, config)
+                        {
+                            $ionicLoading.hide();
+                             var alertPopup = $ionicPopup.alert({
+                               title: 'Alert!',
+                               template: data+" "+status
+                             });
+                             alertPopup.then(function(res) {
+                            //   console.log('Exception!'+status);
+                             });
+                        });
+                  }).
+                  error(function(data, status, headers, config)
+                  {
+                
+                             var alertPopup = $ionicPopup.alert({
+                               title: 'Alert!',
+                               template: data+" "+status
+                             });
+                             alertPopup.then(function(res) {
+                               console.log('Exception!'+status);
+                             });
+                  });
+        };
+        if (acceptType==2)
+         {
+            $scope.discounts=[];
+           if ($scope.discounts[0].e.discount_type=="Percentage")
+            {
+              $scope.dis=$scope.total_amount*parseFloat($scope.discounts[0].e.discount_amount);
+              $scope.obtained_discount=$scope.dis/100;
+              $scope.grand_amount=$scope.total_amount-$scope.obtained_discount; 
+              basket.SetDiscount($scope.obtained_discount);
+           };
+            if ($scope.discounts[0].e.discount_type=="Fixed") {
+              $scope.total_amount=$scope.total_amount-parseFloat($scope.discounts[0].e.discount_amount);
+           };
+        };
+       }
+     $scope.opendateModal = function() { $scope.datemodal.show();};
+     $scope.closedateModal = function(modal) {$scope.datemodal.hide();$scope.my.datepicker = modal;};
+     $scope.changeOrderOptionOnSelect=function(policy_id,policy_name)
+      {
+
+        basket.setOrderOption(policy_id,policy_name);
+        window.localStorage.setItem("selected_policy",policy_name);
+         $scope.dev_option=policy_name;
+        $scope.orderOffer(policy_id);
+        $scope.orderDiscount(policy_id);
+        
+        $scope.policy=JSON.parse(window.localStorage.getItem("policy")); 
+        $scope.policy.forEach(function(e, i){
+          if(e.policy_id==policy_id)
+          {
+            $scope.min_order=e.min_order;
+          }
+        });
+
+      }
+     $scope.confirmOrderOPtion=function(){$scope.my.order_option=window.localStorage.getItem('selected_policy');}
+
+     $scope.showMSg=function(data)
+      {
+         var alertPopup = $ionicPopup.alert({
+                 title: 'Alert',
+                 cssClass:'btnsubmit',
+                 template: data
+               });
+               alertPopup.then(function(res) {
+                 console.log('Exception!'+status);
+               });
+      }
+     $scope.placeOrder=function()
+    {
+     
+      /*check whether cart has data or not*/
+      if($scope.restatus==0)
+      {
+          $scope.showMSg('Empty Shopping Cart');
+          return false;
+      }
+         $scope.user=JSON.parse(window.localStorage.getItem("UserDetails"));
+         if($scope.user==null)
+         {
+            $scope.showMSg('Please make sure your are logined in! ');
+            $location.path('/tab/login/1');
+            return false;
+         };
+         if($scope.dev_option=="")
+          {
+            $scope.showMSg('Please select  delivery or collection option');
+            return false;
+          }
+          else
+          {
+              $location.path('/tab/process');    
+          }
+    }
+    $scope.checkPaymentOption=function(option) {
+     basket.setPaymentOption(option);
+   }
+    $scope.confirmPlaceOrder=function()
+    {
+        if(basket.getPaymentOption()==-1)
+        {
+           $scope.showMSg('Please Select Payment Option');
+           return false;
+        }
+        $http.post(basket.CMS_API()+'config.php?x=ShowCartData&session_id='+$scope.session_id).
+        success(function(data, status, headers, config) 
+        {
+            $scope.paypal_transection_id='';
+            $scope.total_amount=data.total_amount;
+            $scope.grand_amount=data.total_amount-basket.GetDiscount();
+            $scope.discount=basket.GetDiscount();
+            $scope.offer_text=basket.GetOfferText();
+            $scope.user=JSON.parse(window.localStorage.getItem("UserDetails"));
+            $scope.payment_status=basket.getPaymentOption();
+            if($scope.payment_status==0)
+            {
+               $http.post(basket.API()+'Tigger.php?funId=12&rest_id='+basket.REST_ID()+'&user_id='+$scope.user.userid+'&order_policy_id='+basket.getOrderOption()+'&post_code='+$scope.user.postcode+'&OrderList='+JSON.stringify(data)+'&address='+$scope.address+'&city='+$scope.user.city+'&payment_option='+basket.getPaymentOption()+'&total_amount='+$scope.total_amount+'&grand_total='+$scope.grand_amount+'&discount='+$scope.discount+'&offer_text='+$scope.offer_text+'&pre_order_delivery_time='+$scope.my.pre_order_delivery_time+'&comments='+$scope.my.comments+'&payment_status='+$scope.payment_status+'&paypal_transection_id='+$scope.paypal_transection_id).success(function(data)
+                {
+                   console.log(data);
+                       if (data.status=="Success")
+                       {
+                          /*alert("Order has been successfully submitted!");*/
+                          // $scope.showMSg('Order has been successfully submitted!');
+                          //$location.path('/tab/menu'); 
+                            window.localStorage.removeItem("selected_policy");
+                            window.localStorage.removeItem("session_id");
+                            window.localStorage.removeItem("policy"); 
+                            $location.path('/tab/success');
+
+                       };
+                });
+
+            }
+            /*For Paypal*/
+             if($scope.payment_status==1)
+             {
+                 $ionicLoading.show({
+                    template: 'Redirecting to Paypal...'
+                  });
+
+                 $http.post(basket.CMS_API()+'payment.php',{user_id:$scope.user.userid,order_id:data.order_ID,total_amount: $scope.total_amount,grand_total:$scope.grand_amount}).success(function(paypalurl)
+                 {
+                     window.location.replace(paypalurl);
+                     $ionicLoading.hide();
+                 });
+                 window.localStorage.removeItem("selected_policy");
+                 window.localStorage.removeItem("session_id");
+                 window.localStorage.removeItem("policy"); 
+             }
+        }).
+        error(function(data, status, headers, config)
+        {
+             var alertPopup = $ionicPopup.alert({
+                   title: 'Alert!',
+                   template: data+" "+status
+                 });
+                 alertPopup.then(function(res) {
+                   console.log('Exception!'+status);
+                 });
+        });
+    }
+    /*it's for process page*/
+    $scope.my.order_option=window.localStorage.getItem('selected_policy');
+    $scope.dev_option= $scope.my.order_option;
+    if ($scope.my.order_option==0) {
+      $location.path('/tab/cart');    
+    };
+})
+
+.controller('MediaCtrl', function($scope, $ionicModal,basket) {
+  /*###########Create Right Menu##########*/
+    var element = angular.element(document.querySelector('#mymenu'));
+     $scope.isLogged=basket.isLoggedIn();
+     if(angular.equals($scope.isLogged,"true")==true){
+     element.html(createHTML_1());
+     }
+      if(angular.equals($scope.isLogged,"true")==false){
+      element.html(createHTML_0());
+     }
+
+  /*end*/
+    $scope.allImages =[{
+        'src' : 'img/pic1.jpg'
+    }, {
+        'src' : 'img/pic2.jpg'
+    }, {
+        'src' : 'img/pic3.jpg'
+    }];
+
+
+
+    $scope.showImages = function(index)
+     {
+        $scope.activeSlide = index;
+        $scope.showModal('templates/image-popover.html');
+    }
+
+    $scope.playVideo = function() {
+        $scope.showModal('templates/video-popover.html');
+    }
+
+    $scope.showModal = function(templateUrl) 
+    {
+        $ionicModal.fromTemplateUrl(templateUrl, {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modal = modal;
+            $scope.modal.show();
+        });
+    }
+
+    // Close the modal
+    $scope.closeModal = function() {
+        $scope.modal.hide();
+        $scope.modal.remove()
+    };
+})
+
+.controller('ManageUser', function($scope,$http,$location,$ionicPopup, $ionicLoading,basket,$ionicSideMenuDelegate,$stateParams,$ionicModal) 
+{
+  $scope.pageName="";
+    if(basket.isConfigured()==0){
+    $location.path('/tab/menu');
+  }
+     $scope.isLogged=basket.isLoggedIn();
+    $scope.pageid=$stateParams.id;
+    basket.SetTemp($scope.pageid);
+    $scope.user=JSON.parse(window.localStorage.getItem("UserDetails"));
+    if($scope.pageid==1){
+      $scope.pageName="Login";
+    }
+if($scope.pageid==2){
+   $location.path('/tab/login/2');
+   $scope.pageName="Registration";
+}
+    if($scope.pageid==3)
+    {
+       $scope.msg=0;
+       $scope.pageName="My Account";
+    if($scope.isLogged==false){
+     $location.path('/tab/login/1');
+     //return false;
+      }
+         $http.get(basket.API()+'Tigger.php?funId=13&userid='+$scope.user.userid).success(function(data, status, headers, config)
+      {
+
+          if (data.orders[0].status=="Failed") {
+             $scope.msg=1;
+          }else{
+             $scope.previousOrders=data.orders; 
+          }
+    }).
+   error(function(data, status, headers, config)
+   {
+                var alertPopup = $ionicPopup.alert({
+                 title: 'Alert!',
+                 template: data+" "+status
+               });
+               alertPopup.then(function(res) {
+                 console.log('Exception!'+status);
+               });
+   });
+    }
+    if($scope.pageid==4){
+       $scope.pageName="Change Password";
+    }
+if($scope.pageid==5)
+    {
+      
+       $scope.pageName="Favourites";
+       $ionicLoading.show({
+       template: 'Loading...'
+    });
+$scope.msg=0;
+    $http.get(basket.API()+'Tigger.php?funId=16&customer_id=4285&rest_id='+basket.REST_ID(),{cache:true}).
+    success(function(data, status, headers, config)
+    {
+         
+           $ionicLoading.hide();
+           $scope.datalist=data.favourite; 
+           if($scope.datalist[0].status=="Failed")
+           {
+            $scope.msg=1;
+           }
+    }).
+     error(function(data, status, headers, config)
+     {
+         $ionicLoading.hide();
+    });
+   }
+  if($ionicSideMenuDelegate.isOpenRight()===true)
+    {
+         $ionicSideMenuDelegate.toggleRight();
+    } 
+  
+   if($scope.isLogged==false){
+     $location.path('/tab/login/1');
+      if($scope.pageid==2){$location.path('/tab/login/2');}
+     //return false;
+  }
+  /*###########Create Right Menu##########*/
+    var element = angular.element(document.querySelector('#mymenu'));
+     $scope.isLogged=basket.isLoggedIn();
+     if(angular.equals($scope.isLogged,"true")==true){
+     element.html(createHTML_1());
+     }
+      if(angular.equals($scope.isLogged,"true")==false){
+      element.html(createHTML_0());
+     }
+
+  /*end*/
+
+  $scope.user=JSON.parse(window.localStorage.getItem("UserDetails"));
+  if(!window.localStorage.getItem('isLogged'))
+  {
+     $location.path('/tab/login/1');
+  }
+
+  $scope.login={};
+  $scope.registration={};
+
+
+
+  $scope.loginAuthorization=function()
+  {
+
+    $http.post(basket.API()+'Tigger.php?funId=3&username='+$scope.login.username+'&password='+$scope.login.password).success(function(data, status, headers, config)
+    {
+        if (data.status=="Success")
+         {
+            basket.setLoggedIn(true);
+            window.localStorage.setItem("UserDetails",JSON.stringify(data.UserDetails));
+            $location.path('/tab/myaccount/3');
+          }
+          else
+          {
+          /*  alert("Invalid Username/password");*/
+             var alertPopup = $ionicPopup.alert({
+                 title: 'Alert!',
+                 template: "Invalid Username/password"
+               });
+            return false;
+          }
+    }).
+     error(function(data, status, headers, config)
+     {
+             var alertPopup = $ionicPopup.alert({
+                 title: 'Alert!',
+                 template: data+" "+status
+               });
+               alertPopup.then(function(res) {
+                 console.log('Exception!'+status);
+               });
+     });
+  }
+    $scope.reset={};
+  $scope.ResetPassword=function()
+  {
+    
+     $scope.user=JSON.parse(window.localStorage.getItem("UserDetails"));
+
+     if($scope.reset.oldpassword==null)
+    {
+      $scope.showMSg("Please enter old password");
+      return false;
+    }
+        if($scope.reset.newpassword==null)
+    {
+      $scope.showMSg("Please enter new passowrd");
+      return false;
+    }
+
+     $http.post(basket.API()+'Tigger.php?funId=10&email='+$scope.user.email+'&previouspassword='+$scope.reset.oldpassword+'&newpassword='+$scope.reset.newpassword).success(function(data, status, headers, config)
+     {
+         $ionicPopup.alert({
+                 title: 'Alert!',
+                 template: data.msg
+               });
+        $scope.reset.oldpassword="";
+        $scope.reset.newpassword="";
+    }).
+     error(function(data, status, headers, config)
+     {
+            $ionicPopup.alert({
+                 title: 'Alert!',
+                 template: data+" "+status
+               });
+              
+     });
+  }
+$scope.showMSg=function(data)
+{
+         var alertPopup = $ionicPopup.alert({
+                 title: 'Alert',
+                 cssClass:'btnsubmit',
+                 template: data
+               });
+               alertPopup.then(function(res) {
+                 console.log('Exception!'+status);
+               });
+}
+
+    $scope.matchPassword=function()
+    {
+      if($scope.registration.password!=$scope.registration.confirm.password)
+      {
+        $scope.showMSg("Password does not match");
+        return false;
+      }
+    }
+
+$scope.checkString=function(myData)
+{
+
+  var stringOnly = /^[A-Za-z]+$/;
+  if(!stringOnly.test(myData))
+  {
+    $scope.showMSg("Invalid name, do not use number or any special character");
+    return false;
+  }
+}
+  $scope.registration=function()
+  {
+    /*Form Validation*/
+    
+
+    if($scope.registration.fname==null)
+    {
+      $scope.showMSg("Please enter your full name");
+      return false;
+    }
+        if($scope.registration.email==null)
+    {
+      $scope.showMSg("Please enter valid email address");
+      return false;
+    }
+    if($scope.registration.mobile==null)
+    {
+      $scope.showMSg("Please put your Mobile no");
+      return false;
+    }
+     if($scope.registration.postcode==null)
+    {
+      $scope.showMSg("Please enter your postcode");
+      return false;
+    }
+     if($scope.registration.address1==null)
+    {
+      $scope.showMSg("Please enter address");
+      return false;
+    }
+     if($scope.registration.postcode==null)
+    {
+      $scope.showMSg("Please enter your postcode");
+      return false;
+    }
+    var dob=$scope.registration.dobmonth+" "+$scope.registration.dobday;
+    var doa=$scope.registration.admonth+" "+$scope.registration.adday;
+  /*Form validation end*/
+    $ionicLoading.show({
+       template: 'Creating your account...'
+      });
+      $http.post(basket.API()+'Tigger.php?funId=8&fname='+$scope.registration.fname+'&lname='+$scope.registration.lname+'&email='+$scope.registration.email+'&mobile_no='+$scope.registration.mobile+'&telephone_no='+$scope.registration.tel+'&postcode='+$scope.registration.postcode+'&address1='+$scope.registration.address1+'&address2='+$scope.registration.address2+'&city='+$scope.registration.city+'&country='+$scope.registration.country+'&password='+$scope.registration.password+"&dob_date="+dob+"&doa="+doa).success(function(data, status, headers, config)
+      {
+           $ionicLoading.hide();
+           if (data.status=="Success")
+           {
+            console.log(data.UserDetails);
+               basket.setLoggedIn(true);
+              window.localStorage.setItem("UserDetails",JSON.stringify(data.UserDetails));
+               var alertPopup = $ionicPopup.alert({
+                 title: 'Confirmation',
+                 template: data.msg
+               });
+               alertPopup.then(function(res) {
+                $location.path('/tab/myaccount/3');
+                 console.log('Exception!'+status);
+               });   
+            }
+
+
+           if (data.status=="Failed")
+           {
+                   var alertPopup = $ionicPopup.alert({
+                     title: 'Alert',
+                     template: data.msg
+                   });
+                   alertPopup.then(function(res) {
+                     $location.path('/tab/login/1');
+                     console.log('Exception!'+status);
+                   });
+
+           }
+      }).
+     error(function(data, status, headers, config)
+     {
+       $ionicLoading.hide();
+           var alertPopup = $ionicPopup.alert({
+                   title: 'Alert!',
+                   template: data+" "+status
+                 });
+                 alertPopup.then(function(res) {
+                   console.log('Exception!'+status);
+                 });  
+     });
+  }
+  if($scope.pageid==2){
+   $location.path('/tab/login/2');
+    return false;
+}
+/*show modal*/
+  $ionicModal.fromTemplateUrl('templates/my-modal.html',
+   {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+    // Triggered in the login modal to close it
+  $scope.closeLogin = function() {
+    $scope.modal.hide();
+  };
+
+  // Open the login modal
+  $scope.showmodal = function() {
+    $scope.modal.show();
+  };
+/*end of modal part*/
+})
+
+.controller('AccountCtrl', function($scope,$http,  $location, $ionicModal, $ionicLoading,basket,$ionicSideMenuDelegate) 
+{
+    if(basket.isConfigured()==0){
+    $location.path('/tab/menu');
+  }
+  if($ionicSideMenuDelegate.isOpenRight()===true)
+    {
+         $ionicSideMenuDelegate.toggleRight();
+    } 
+   $scope.isLogged=basket.isLoggedIn();
+   if($scope.isLogged==false){
+     $location.path('/tab/login');
+     return false;
+  }
+  /*###########Create Right Menu##########*/
+    var element = angular.element(document.querySelector('#mymenu'));
+     $scope.isLogged=basket.isLoggedIn();
+     if(angular.equals($scope.isLogged,"true")==true){
+     element.html(createHTML_1());
+     }
+      if(angular.equals($scope.isLogged,"true")==false){
+      element.html(createHTML_0());
+     }
+
+  /*end*/
+
+  $scope.user=JSON.parse(window.localStorage.getItem("UserDetails"));
+
+  if(!window.localStorage.getItem('isLogged'))
+  {
+     $location.path('/tab/login/1');
+     return false;
+  }
+
+   $http.get(basket.API()+'Tigger.php?funId=13&userid='+$scope.user.userid).success(function(data, status, headers, config)
+    {
+        if (data.results.status="Success") 
+        {
+           $scope.msg=data.results.msg;
+           $scope.previousOrders=data.orders; 
+        }else{
+          $scope.msg="You have no orders";
+        }   
+    }).
+   error(function(data, status, headers, config)
+   {
+        var alertPopup = $ionicPopup.alert({
+                 title: 'Alert!',
+                 template: data+" "+status
+               });
+               alertPopup.then(function(res) {
+                 console.log('Exception!'+status);
+               });   
+   });
+/*show modal*/
+  $ionicModal.fromTemplateUrl('templates/my-modal.html',
+   {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+    // Triggered in the login modal to close it
+  $scope.closeLogin = function() {
+    $scope.modal.hide();
+  };
+
+  // Open the login modal
+  $scope.showmodal = function() {
+    $scope.modal.show();
+  };
+/*end of modal part*/
+})
+
+
+.controller('ContactCtrl', function($scope, basket,$stateParams,$http, $ionicSideMenuDelegate,$location) 
+{
+    if(basket.isConfigured()==0){
+    $location.path('/tab/menu');
+  }
+     $scope.page={}
+
+     $scope.pageTitle="";
+     var element = angular.element(document.querySelector('#mymenu'));
+     $scope.isLogged=basket.isLoggedIn();
+     if(angular.equals($scope.isLogged,"true")==true)
+     {
+      element.html(createHTML_1());
+
+     }
+      if(angular.equals($scope.isLogged,"true")==false){
+      element.html(createHTML_0());
+     }
+
+ var contact_page = angular.element(document.querySelector('#contactpage'));
+
+
+   $http.get(basket.CMS_API()+'config.php?x=ContactPage',{cache:true}).
+    success(function(data, status, headers, config)
+    {
+       // $scope.data=data;     
+       contact_page.html(data);
+    }).
+     error(function(data, status, headers, config)
+     {
+                var alertPopup = $ionicPopup.alert({
+                 title: 'Alert!',
+                 template: data+" "+status
+               });
+               alertPopup.then(function(res) {
+                 console.log('Exception!'+status);
+               });
+    });
+
+       /*Restuarent setting*/
+  if (!window.localStorage.getItem("Rsetting")) {
+      $http.get(basket.API()+'Tigger.php?funId=19&rest_id='+basket.REST_ID(),{cache:true}).success(function(data, status, headers, config)
+      {
+         window.localStorage.setItem("Rsetting",JSON.stringify(data.app[0]));
+      });
+    }else{
+      $scope.setting=JSON.parse(window.localStorage.getItem("Rsetting"));
+      $scope.bizzTel=$scope.setting.business_tel;
+      $scope.address=$scope.setting.address.replace(/<[^>]+>/gm, '');
+
+    }
+  /*end*/
+
+})
+
+.controller('ReservationCtrl', function($scope,$http, $ionicModal, $timeout,$ionicSlideBoxDelegate,$ionicPopup, $location, $ionicLoading,basket,$ionicSideMenuDelegate) 
+{
+    if(basket.isConfigured()==0){
+    $location.path('/tab/menu');
+  }
+     $scope.page={}
+     $scope.res={};
+     $scope.pageTitle="";
+     var element = angular.element(document.querySelector('#mymenu'));
+     $scope.isLogged=basket.isLoggedIn();
+     if(angular.equals($scope.isLogged,"true")==true)
+     {
+      element.html(createHTML_1());
+
+     }
+      if(angular.equals($scope.isLogged,"true")==false){
+      element.html(createHTML_0());
+     }
+      $ionicModal.fromTemplateUrl('templates/datemodal.html', 
+        function(modal) {
+            $scope.datemodal = modal;
+        },
+        {
+        // Use our scope for the scope of the modal to keep it simple
+        scope: $scope, 
+        // The animation we want to use for the modal entrance
+        animation: 'slide-in-up'
+        }
+    );
+     $scope.opendateModal = function() { $scope.datemodal.show();};
+     $scope.closedateModal = function(modal)
+      {
+        $scope.datemodal.hide();
+        $scope.res.datepicker = modal;
+      };
+     /*add reservation*/
+     $scope.showMSg=function(data)
+{
+         var alertPopup = $ionicPopup.alert({
+                 title: 'Alert',
+                 template: data
+               });
+               alertPopup.then(function(res) {
+                 console.log('Exception!'+status);
+               });
+}
+     $scope.addReservation=function()
+     {
+
+
+               if($scope.res.fname==null)
+                {
+                  $scope.showMSg("Please enter your full name");
+                  return false;
+                }
+                if($scope.res.email==null)
+                {
+                  $scope.showMSg("Please enter valid email address");
+                  return false;
+                }
+
+                 if($scope.res.mobile==null)
+                {
+                  $scope.showMSg("Please enter mobile no");
+                  return false;
+                }
+
+                 if($scope.res.datepicker==null)
+                {
+                  $scope.showMSg("Please select date");
+                  return false;
+                }
+
+         $http.post(basket.API()+'Tigger.php?funId=9&fullName='+$scope.res.fname+'&email='+$scope.res.email+'&mobile_no='+$scope.res.mobile+'&reservation_date='+$scope.res.datepicker+'&reservation_time='+$scope.res.mytime+'&guest='+$scope.res.guest+'&special_request='+$scope.res.special_req+'&rest_id='+basket.REST_ID()).success(function(data, status, headers, config)
+          {
+             // alert(data.msg);
+               var alertPopup = $ionicPopup.alert({
+               title: 'Confirmation',
+               template: data.msg
+             });
+             alertPopup.then(function(res) {
+               console.log('Thank you');
+             });
+          }).
+         error(function(data, status, headers, config)
+         {
+                 var alertPopup = $ionicPopup.alert({
+                 title: 'Alert!',
+                 template: data+" "+status
+               });
+               alertPopup.then(function(res) {
+                 console.log('Exception!'+status);
+               });
+         });
+     }
+     /*end*/
+})
+
+.controller('FavCtrl', function($scope,$http, $ionicModal, $timeout,$ionicSlideBoxDelegate, $location, $ionicLoading,basket,$filter, $ionicSideMenuDelegate) 
+{
+     $scope.user=JSON.parse(window.localStorage.getItem("UserDetails"));
+     $scope.page={}
+     $scope.pageTitle="";
+     var element = angular.element(document.querySelector('#mymenu'));
+     $scope.isLogged=basket.isLoggedIn();
+     if(angular.equals($scope.isLogged,"true")==true)
+     {
+      element.html(createHTML_1());
+
+     }
+      if(angular.equals($scope.isLogged,"true")==false){
+      element.html(createHTML_0());
+     }
+
+    var contact_page = angular.element(document.querySelector('#contactpage'));
+
+      $ionicLoading.show({
+      template: 'Loading...'
+    });
+
+    $http.get(basket.API()+'Tigger.php?funId=16&customer_id=4285',{cache:true}).
+    success(function(data, status, headers, config)
+    {
+          $ionicLoading.hide();
+       $scope.datalist=data.favourite; 
+       console.log($scope.datalist);
+    }).
+     error(function(data, status, headers, config)
+     {
+         $ionicLoading.hide();
+    });
+})
+function createHTML_0()
+{
+//alert(con);
+var temp='';
+ temp+='<ul class="list">';
+                temp+='<li>';
+                temp+='<a class="item" menu-close nav-clear href="#/tab/login/1">Login</a>';
+              temp+='</li>';
+             temp+=' <li>';
+               temp+='<a class="item" menu-close nav-clear href="#/tab/registration/2">Registration</a>';
+             temp+='</li>';
+            temp+='</ul>';
+  return temp;
+}
+
+
+function createHTML_1()
+{
+//alert(con);
+var temp='';
+ temp+='<ul class="list">';
+              temp+=' <li>';
+               temp+=' <a class="item" menu-close nav-clear href="#/tab/myaccount/3">My Account</a>';
+              temp+='</li>';
+              temp+='<li>';
+                temp+='<a class="item" menu-close nav-clear href="#/tab/reset/4">Change Password</a>';
+              temp+='</li>';
+            /*  temp+='<li>';
+                temp+='<a class="item" menu-close nav-clear href="#/tab/registration">Order History</a>';
+              temp+='</li>';*/
+             temp+=' <li>';
+                temp+='<a class="item" menu-close nav-clear href="#/tab/favourite/5">My Favourite</a>';
+              temp+='</li>';
+               temp+='<li>';
+               temp+='<a class="item" menu-close nav-clear href="#/tab/registration">Logout</a>';
+              temp+='</li>';
+            temp+='</ul>';
+
+  return temp;
+}
+

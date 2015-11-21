@@ -1,0 +1,39 @@
+<?php
+$rst=$_REQUEST['rest_id'];
+$paypal_id=$_REQUEST['paymentId'];
+$url="http://chefonline.co.uk/mobileapi-v2/Tigger.php?funId=28&rest_id=$rst&payment_status=1&transaction_id=$paypal_id";
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_HEADER, 0);
+curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1); 
+$result_data = curl_exec($ch);
+curl_close($ch);
+print_r($result_data);
+?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>PayPal Success</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script type="text/javascript">
+		function closeCurrentWindow()
+		{
+		 window.open('', '_self', ''); //bug fix
+		window.close();
+		}
+		window.onload=function()
+		{
+			window.localStorage.setItem("paypal_status","1");
+		}
+</script>
+  </head>
+  <body>
+		<div class="jumbotron">
+			<div class="page-header" style="text-align:center">
+			  <h1><small>Thank you for your order with us, an email has been sent with your order details.Close the window to back.</small></h1>
+			  <button type="button" class="btn btn-primary btn-lg" onclick="closeCurrentWindow()">Close window</button>
+			</div>
+		</div>
+  </body>
+</html>

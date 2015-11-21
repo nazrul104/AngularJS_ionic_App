@@ -1,0 +1,18 @@
+     <ion-view title="Gallery">
+        <ion-content ng-controller="MediaCtrl">
+        <ion-list>
+            <section class="ac-container">
+
+                <div class="list card gallery-box">
+                    <h2>Gallery</h2>
+                    <div class="row responsive-sm gallery-inner">
+                          <a class="item-list-detail">
+                                  <img ng-repeat="image in allImages" ng-src="{{image.src}}" ng-click="showImages($index)" class="image-list-thumb"/>
+                          </a>
+
+                    </div>
+                </div>
+            </section>
+        </ion-list>
+    </ion-content>
+      </ion-view>

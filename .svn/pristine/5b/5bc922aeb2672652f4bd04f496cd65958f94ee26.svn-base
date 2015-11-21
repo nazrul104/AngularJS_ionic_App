@@ -1,0 +1,19 @@
+     <ion-view title="Order Summary">
+        <ion-content>
+
+        <div class="card cartCard">
+  <div class="item item-divider cartHeader">
+  <i class="ion-ios7-cart"></i>&nbsp;Order in Details
+     <a href="tel:{{restTel}}"class="button  button-small button-assertive" style="float:right">
+      <i class="icon ion-ios7-telephone"></i>
+    </a>
+  </div>
+  <div class="item item-text-wrap cartView">
+    <h2>Thank you for your order with us, an email has been sent with your order details.</h2>
+  </div>
+</div>
+
+
+ 
+        </ion-content>
+      </ion-view>

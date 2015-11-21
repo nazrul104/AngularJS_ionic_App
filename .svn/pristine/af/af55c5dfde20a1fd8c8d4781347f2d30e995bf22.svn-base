@@ -1,0 +1,222 @@
+     <ion-view title="{{pageName}}">
+                    <ion-content>
+                <ion-list ng-if="pageid==1">
+                    <section class="ac-container">
+                        <div class="card">
+            <div class="list list-inset">
+              <label class="item item-input">
+                <i class="icon ion-email placeholder-icon"></i>
+                <input type="text" placeholder="username/email" ng-model="login.username">
+              </label>
+                <label class="item item-input">
+                <i class="icon ion-locked placeholder-icon"></i>
+                <input type="password" placeholder="password" ng-model="login.password">
+              </label>
+              <button class="button button-block login-btn btnsubmit" ng-click="loginAuthorization()">
+              Sign in
+            </button>
+            </div>
+                                    <div  style="float:left;margin-left:15px">
+                                      <input type="checkbox"> Stay signed in
+                                  </div>
+                                    <div class="padding" style="float:right">
+                                      <a href="#/tab/registration/2" class="button button-clear  button-positive" style="float:left;margin-top:-20px"><i class="ion-ios7-personadd"></i> New Registration</a>   
+                                  </div>
+                      </div>
+                    </section>
+                </ion-list>
+
+             <ion-list ng-if="pageid==2">
+        <section class="ac-container">
+            
+            <div class="list card">
+
+                <label class="item item-input">
+                    <span class="input-label">First Name <span style="color: #EC1839"> *</span></span>
+                    <input type="text" placeholder="Elliot"  ng-model="registration.fname"  ng-blur="checkString(registration.fname)" >
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Last Name <span style="color: #EC1839"></span></span>
+                  <input type="text" placeholder="Jone" ng-model="registration.lname">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Email Address <span style="color: #EC1839"> *</span></span>
+                  <input type="email" placeholder="example@chefonline.co.uk" ng-model="registration.email">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Mobile No <span style="color: #EC1839"> *</span></span>
+                  <input type="tel" ng-model="registration.mobile" placeholder="07x-xxx-xxx-xx">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Telephone No </span>
+                  <input type="text" ng-model="registration.tel">
+                </label>
+                <label class="item item-input">
+                    <p>Please fill the date of birth or Aniversary date and receive offers for that specially occassion.</p>
+                </label>
+                <div class="list">
+                    <div class="item item-divider">
+                     Date of Birth
+                    </div>
+                    <a class="item" >
+                      <input type="text" list="fday" ng-model="registration.dobday" placeholder="Day" style="width:50%;float:left">
+                      <input type="text" list="fmonth" ng-model="registration.dobmonth" placeholder="Month" style="width:50%;float:left">
+                      <datalist id="fday">
+                                <option value='1'><option value='2'><option value='3'><option value='4'><option value='5'><option value='6'><option value='7'><option value='8'><option value='9'><option value='10'>
+                                   <option value='11'><option value='12'><option value='13'><option value='14'><option value='15'><option value='16'><option value='17'><option value='18'><option value='19'><option value='20'>
+                                     <option value='21'><option value='22'><option value='23'><option value='24'><option value='25'><option value='26'><option value='27'><option value='28'><option value='29'><option value='30'><option value='31'>
+                      </datalist>
+                       <datalist id="fmonth">
+                               <option value="">Month</option>
+                                                                <option value="January">January</option>
+                                                                <option value="February">February</option>
+                                                                <option value="March">March</option>
+                                                                <option value="April">April</option>
+                                                                <option value="May">May</option>
+                                                                <option value="June">June</option>
+                                                                <option value="July">July</option>
+                                                                <option value="August">August</option>
+                                                                <option value="September">September</option>
+                                                                <option value="October">October</option>
+                                                                <option value="November">November</option>
+                                                                <option value="December">December</option> 
+                      </datalist>
+                    </a>
+                      <div class="item item-divider">
+                     Aniversary Date
+                    </div>
+                    <a class="item" >
+                      <input type="text" list="fday" ng-model="registration.adday" placeholder="Day" style="width:50%;float:left">
+                      <input type="text" list="fmonth"  ng-model="registration.admonth" placeholder="Month" style="width:50%;float:left">
+                    </a>
+              </div>
+
+                <label class="item item-input">
+                    <span class="input-label">Postcode <span style="color: #EC1839"> *</span></span>
+                    <input type="text" ng-model="registration.postcode" placeholder="Your postcode">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Address 1 <span style="color: #EC1839"> *</span></span>
+                  <input type="text" ng-model="registration.address1" placeholder="Your address">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Address 2 </span>
+                  <input type="text" ng-model="registration.address2">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Town/City <span style="color: #EC1839"> </span></span>
+                  <input type="text" ng-model="registration.town">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">County </span>
+                  <input type="text" ng-model="registration.country" placeholder="">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Password <span style="color: #EC1839"> *</span></span>
+                  <input type="password" ng-model="registration.password" placeholder="password" >
+                </label>
+                <label class="item item-input">
+                    <span class="input-label" style="padding:0;">&nbsp;</span>
+                    <p>Between 6 to 16 characters</p>
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Confirm Password <span style="color: #EC1839"> *</span></span>
+                  <input type="password" ng-model="registration.confirm.password" ng-blur="matchPassword()" placeholder="Confirm your password">
+                </label> 
+                <div class="padding">
+                    <button class="button button-block login-btn btnsubmit" ng-click="registration()">CREATE MY ACCOUNT</button>
+                </div>
+            </div>
+            
+        </section>
+    </ion-list>
+        <ion-list ng-if="pageid==3">
+     <div class="list card">
+  <div class="item item">
+   <a ng-click="showmodal()"> <i class="ion-person" style="font-size:46px"></i>
+         <button  ng-click="showmodal()" class="button  button-small button-assertive" style="float:right;margin-right:2px">
+      <i class="icon ion-edit"></i>
+    </button>
+       <button class="button  button-small button-assertive" style="float:right;margin-right:2px">
+      <i class="icon ion-ios7-telephone"></i>
+    </button>
+    <h2>{{user.first_name}} {{user.last_name}}</h2>
+    <p>{{user.address1}}, {{user.address2}}{{user.postcode}} </p>
+    </a>
+  </div>
+
+  <div class="item item-body" style="overflow:scroll">
+        <div class="list">
+
+    <a class="item item"  ng-repeat="item in previousOrders">
+      <p style="font-weight:bold">Order No:{{item.order_no}} </p>
+       <span class="badge badge-assertive">&pound;{{item.grand_total | number:2}}</span>
+       <p>{{item.payment_method}} , {{item.payment_status}}</p>
+      <p>{{item.order_date}}</p>
+    </a>
+   
+        <div class="card" ng-if="msg==1">
+        <div class="item item-divider">
+          Message
+        </div>
+        <div class="item item-text-wrap">
+          <i class="icon ion-alert-circled" style="font-size:36px"></i> You have no previous order.
+        </div>
+        <div class="item item-divider">
+          No item found!
+        </div>
+      </div>
+</div>
+  </div>
+</div>
+    </ion-list>
+
+        <ion-list ng-if="pageid==4">
+        <section class="ac-container">
+            <div class="card">
+              <div class="list list-inset">
+
+                <label class="item item-input">
+                  <i class="icon ion-locked placeholder-icon"></i>
+                  <input type="password" placeholder="Old password" ng-model="reset.oldpassword">
+                </label>
+                 <label class="item item-input">
+                  <i class="icon ion-locked placeholder-icon"></i>
+                  <input type="password" placeholder="New password" ng-model="reset.newpassword">
+                </label>
+                <button class="button button-block login-btn btnsubmit" ng-click="ResetPassword()">
+                Save Change
+              </button>
+              </div>
+          </div>
+        </section>
+    </ion-list>
+                <ion-list ng-if="pageid==5">
+                <ion-list  ng-repeat="item in datalist">
+                <ion-list ng-repeat="e in item.cus_fav_dish" >
+                <ion-item style="border-bottom:1px #999;border-style:normal">
+             <!--  <i class="icon" ng-class="isGroupShown(e) ? 'ion-minus' : 'ion-plus'"></i> -->
+            {{e.Dish_Name}}
+             <p>{{e.Dish_Description}}</p>
+             <p>&pound;{{e.Dish_Price}}</p>
+                        <button  class="button button-assertive item-catagory-btn">
+        Order  <i class="ion-plus-round"></i>
+             </button>
+          </ion-item>
+            </ion-list>
+    </ion-list>
+    
+    <div class="card" ng-if="msg==1">
+        <div class="item item-divider">
+          Message
+        </div>
+        <div class="item item-text-wrap">
+          <i class="icon ion-alert-circled" style="font-size:36px"></i> You have no favourite item.
+        </div>
+        <div class="item item-divider">
+          No item found!
+        </div>
+      </div>
+    </ion-list>
+            </ion-content>
+</ion-view>

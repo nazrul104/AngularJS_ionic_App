@@ -1,0 +1,48 @@
+<ion-modal-view>
+  <ion-header-bar style="background-color:#DE5645;">
+    <h1 class="title" style="color:#fff">Your Details</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeLogin()">Close</button>
+    </div>
+  </ion-header-bar>
+ <ion-content>
+    <div class="list">
+  <label class="item item-input">
+   <span class="input-label">First Name <span style="color: #EC1839"> *</span></span> <input type="text" placeholder="First Name" ng-model="user.first_name">
+  </label>
+  <label class="item item-input">
+    <span class="input-label">Last Name <span style="color: #EC1839"> *</span></span><input type="text" placeholder="Last Name" ng-model="user.last_name">
+  </label>
+  <label class="item item-input">
+    <span class="input-label">Mobile <span style="color: #EC1839"> *</span></span> <input type="text" placeholder="Mobile" ng-model="user.mobile">
+  </label>
+  <label class="item item-input">
+    <span class="input-label">Telephone No <span style="color: #EC1839"> *</span></span> <input type="text" placeholder="Telephone No" ng-model="user.telephone_no">
+  </label>
+  <label class="item item-input">
+    <span class="input-label">PostCode <span style="color: #EC1839"> *</span></span> <input type="text" placeholder="PostCode" ng-model="user.postcode">
+  </label>
+  <label class="item item-input">
+    <span class="input-label">Address1 <span style="color: #EC1839"> *</span></span> <input type="text" placeholder="Address1" ng-model="user.address1">
+  </label>
+  <label class="item item-input">
+    <span class="input-label">Address2 <span style="color: #EC1839"> *</span></span> <input type="text" placeholder="Address2" ng-model="user.address2">
+  </label>
+  <label class="item item-input">
+    <span class="input-label">Town <span style="color: #EC1839"> *</span></span> <input type="text" placeholder="Town" ng-model="user.town">
+  </label>
+  <label class="item item-input">
+    <span class="input-label">City <span style="color: #EC1839"> *</span></span> <input type="text" placeholder="City" ng-model="user.city">
+  </label>
+  <label class="item item-input">
+   <span class="input-label">Country <span style="color: #EC1839"> *</span></span>  <input type="text" placeholder="Country" ng-model="user.country">
+  </label>
+  <label class="item item-input">
+       <div class="padding">
+       <button class="button button-block login-btn" ng-click="registration()">SAVE CHANGE</button>
+   </div>
+  </label>
+</div>
+
+</ion-content>
+</ion-modal-view>

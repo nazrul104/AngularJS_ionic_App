@@ -1,0 +1,183 @@
+body {
+  cursor: url('http://ionicframework.com/img/finger.png'), auto;
+
+}
+
+/*
+ * http://docs.angularjs.org/api/ng/directive/ngShow#usage_animations
+ */
+ .item{
+ 	text-align: left;
+  border:0px;
+ }
+.list .item.item-accordion {
+  line-height: 38px;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.09s all linear;
+}
+.list .item.item-accordion.ng-hide {
+  line-height: 0px;
+}
+.list .item.item-accordion.ng-hide-add,
+.list .item.item-accordion.ng-hide-remove {
+  display: block !important;
+}
+.item-body p{
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+/*.popup {
+  width: 100%;
+  height: 350px;
+}*/
+
+#mycart{
+
+  z-index:9999999999999;
+  position:fixed;
+  top:20%;
+  right:30px;
+  border:0px;
+  width:100px;
+  height:100px;
+  /*border-radius:100px;*/
+   background:url("../img/Cart_4.png") no-repeat;
+    -webkit-transition: all 1s; /* Safari */
+    text-decoration: none;
+
+}
+#mycart:hover{
+   -ms-transform: rotate(360deg); 
+    -webkit-transform: rotate(360deg); 
+    transform: rotate(360deg); 
+   /*  -ms-transform: scale(2,2); 
+    -webkit-transform: scale(2,2); 
+    transform: scale(2,2);*/
+}
+#mycart p{
+  font-weight:bold;
+  text-align:center;
+  margin-top:20px;
+  color:#570000;
+  text-decoration:none;
+  margin-left: 7px;
+   color: #fff;
+}
+#mytel{
+  z-index:999999999999;
+  position:fixed;
+  top:20%;
+  right:90px;
+  width:50px;
+  height:50px;
+  border-radius:100px;
+  border:0px;
+  background-color: #4f7d6a;
+    -webkit-transition: all 1s; /* Safari */
+}
+#mytel:hover{
+   -ms-transform: rotate(360deg); 
+    -webkit-transform: rotate(360deg); 
+    transform: rotate(360deg); 
+/*     -ms-transform: scale(2,2);
+    -webkit-transform: scale(2,2);
+    transform: scale(2,2);*/
+}
+
+ .error-container {
+  margin: 5px 0;
+}
+ 
+.error-container:last-child {
+    margin: 5px 0 0;
+}
+ 
+.error {
+  padding: 10px 16px;
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #555;
+  vertical-align: middle;
+}
+ 
+.error i {
+  font-size: 24px;
+  color: #B83E2C;  
+  vertical-align: middle;
+}
+ 
+.last-error-container > .error {
+  padding: 10px 16px 0;
+}
+ 
+.has-errors {
+  border-bottom: 3px solid #B83E2C;
+}
+ 
+.no-errors {
+  border-bottom: 3px solid green;
+}
+#mymenu ul li a{background-color:inherit;color:inherit;}
+
+.item-complex .item-content, .item-radio .item-content{
+    background-color: #ff0000;
+  color: #fff;
+  border:0px;
+  padding: 10px 40px 10px 10px;
+
+}
+
+.item-radio input:checked ~ .item-content{
+ 
+   background-color: #999;
+  color: #fff;
+}
+.item-radio .radio-icon{
+  padding:7px;
+}
+.cartCard{
+  border-radius: 0px;
+
+}
+.cartOption{
+  background-color:#444;
+  border:0px;
+  margin-bottom:2px;
+}
+.cartView{
+  background-color: #444;
+  color: #fff;
+
+}
+.cartHeader{
+  background-color: #666;
+  color: #fff;
+}
+.cartfooter{
+  background-color: #666;
+  color: #fff;
+
+}
+.item.item-stable{
+  border-bottom: 1px #999 solid;
+}
+.item.active.item-stable, .item.activated.item-stable, .item-complex.active .item-content.item-stable, .item-complex.activated .item-content.item-stable, .item .item-content.active.item-stable, .item .item-content.activated.item-stable{
+  background-color: #A80A0A;
+ }
+ .btnsubmit{
+  background-color: #C62B2B;
+  color: #fff;
+ }
+  .btnsubmit:hover
+  {
+    color: #fff;
+  }
+.tabs-icon-top > .tabs .tab-item, .tabs-icon-top.tabs .tab-item, .tabs-icon-bottom > .tabs .tab-item, .tabs-icon-bottom.tabs .tab-item{
+  color:#FFF;
+  opacity:1;
+}
+.tab-item tab-item-active{
+  border-top:0px;
+}

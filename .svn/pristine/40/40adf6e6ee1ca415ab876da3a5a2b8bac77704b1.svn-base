@@ -1,0 +1,17 @@
+ <ion-view title="My Favourite">
+                <ion-content>
+                <ion-list  ng-repeat="item in datalist">
+                <ion-list ng-repeat="e in item.cus_fav_dish" >
+                <ion-item style="border-bottom:1px #999;border-style:normal">
+             <!--  <i class="icon" ng-class="isGroupShown(e) ? 'ion-minus' : 'ion-plus'"></i> -->
+            {{e.Dish_Name}}
+             <p>{{e.Dish_Description}}</p>
+             <p>&pounds;{{e.Dish_Price}}</p>
+                        <button  class="button button-assertive item-catagory-btn">
+        Order  <i class="ion-plus-round"></i>
+             </button>
+          </ion-item>
+            </ion-list>
+    </ion-list>
+        </ion-content>
+      </ion-view>

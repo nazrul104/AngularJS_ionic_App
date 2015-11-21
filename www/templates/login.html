@@ -1,0 +1,479 @@
+<ion-view title="">
+    <ion-content class="has-header">
+
+    <!-- start login page  -->
+        <ion-list ng-if="pageid==1">
+            <section class="ac-container">
+                <div class="card pb-20">
+                    <div class="list list-inset registration-common-element">
+                        <form>
+                            <label class="item item-input">
+                                <i class="icon ion-email placeholder-icon"></i>
+                                <input type="email" required placeholder="Your email address" ng-model="login.username">
+                            </label>
+                            <label class="item item-input">
+                                <i class="icon ion-locked placeholder-icon"></i>
+                                <input type="password" required placeholder="Password" ng-model="login.password">
+                            </label>
+                            <div>
+                                <button type="submit" class="button button-full button-positive" ng-click="loginAuthorization()">
+                                    Sign In
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="ui-stay-sign-in">
+                        <input type="checkbox" checked> Stay signed in
+                    </div>
+
+                    <!--     <div class="padding" style="float:right">
+                      <a href="#/tab/login/11" class="button" style="float:left;margin-top:-20px;border:0px"> Forgot password?</a>
+                  </div> -->
+                    <div style="margin-left:15px;padding-top:7px">
+                        <a style="text-decoration:none;color:#444" href="#/tab/registration/11" style="border:0px" title="Forgot Password">&nbsp;Forgot Password?</a>
+                    </div>
+                    <div style="margin-right:15px;float:right;margin-top:-40px">
+                        <a href="#/tab/registration/2" style="text-decoration:none;color:#444" style="margin-top:-20px;border:0px"><i class="ion-ios7-personadd"></i> New Registration</a>
+                    </div>
+
+                </div>
+
+            </section>
+        </ion-list>
+    <!-- end login page  -->
+
+
+
+    <!-- start about page  -->
+        <ion-list ng-if="pageid==8">
+
+            <section class="ac-container about-page">
+                <div class="card">
+                    <h4>About Us</h4>
+                    <p id="aboutus" style="color:#8E3131"></p>
+                </div>
+            </section>
+        </ion-list>
+    <!-- end about page  -->
+
+        <ion-list ng-if="pageid==9">
+            <!--   <section class="ac-container">
+                      <div id="carousel">
+                     <div style="padding-left:10px"class="gallery-item" ng-repeat="item in gimage" >
+                       <a  style="float:left;margin:2px">
+        <img ng-src="http://chefonline.co.uk/currypalacecottenham_t2_v1/backoffice/uploads/gallery/{{item.name}}" style="width:150px;height:150px" alt=""/>
+                       </a>
+                       </div>
+                    </div>
+                    </section> -->
+
+            <div class="row responsive-md" style="background-color:#fff">
+                <div class="col col-25" ng-repeat="item in gimage" ng-if="item">
+
+                    <img class="galleryimage" ng-src="http://www.curryworldindian.com/backoffice/uploads/gallery/{{item.name}}" width="100%" />
+                </div>
+                <h4 ng-if="!item">
+                    No gallery image found!
+
+                </h4>
+            </div>
+        </ion-list>
+
+        <ion-list ng-if="pageid==11">
+            <section class="ac-container">
+
+                <div class="card">
+                    <h5 style="margin-left:15px">Enter your e-mail address associated with your account to reset your password.</h5>
+                    <label class="item item-input">
+                        <span class="input-label">Email Address:<span style="color: #EC1839"></span></span>
+                        <input type="text" AUTOFOCUS placeholder="" ng-model="foo.forgotpass" value="">
+                    </label>
+                    <div style="margin:0px 5px 0px 5px">
+
+                        <button class="button button-block button-positive" ng-click="ForgotPassword()">
+                            SUBMIT
+                        </button>
+
+                    </div>
+                </div>
+            </section>
+        </ion-list>
+
+    <!-- start registration page  -->
+        <ion-list ng-if="pageid==2">
+            <section class="ac-container">
+                <div class="list registration-common-element">
+                    <div class="card cartCard" style="margin-top:4px;">
+                        <div class="item item-divider" style="padding-left:2px">
+                            <span><i class="ion-compose"></i> Registration</span>
+                        </div>
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">First Name <span style="color: #EC1839"> *</span></span>
+                            <input type="text" placeholder="" value="" ng-model="registration.fname" ng-blur="checkString(registration.fname)">
+                        </label>
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Last Name <span style="color: #EC1839"></span></span>
+                            <input type="text" placeholder="" ng-model="registration.lname" value="">
+                        </label>
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Email Address <span style="color: #EC1839"> *</span></span>
+                            <input type="email" placeholder="" ng-model="registration.email">
+                        </label>
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Mobile No <span style="color: #EC1839"> *</span></span>
+                            <input type="tel" ng-model="registration.mobile" placeholder="" value="">
+                        </label>
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Telephone No </span>
+                            <input type="tel" ng-model="registration.tel">
+                        </label>
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Date of Birth </span>
+                            <input type="date" ng-model="registration.dob">
+                        </label>
+
+
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Aniversary Date </span>
+                            <input type="date" ng-model="registration.doa" placeholder="">
+                        </label>
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Postcode <span style="color: #EC1839"> *</span></span>
+                            <input type="text" ng-model="registration.postcode" placeholder="">
+                        </label>
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Address 1 <span style="color: #EC1839"> *</span></span>
+                            <input type="text" ng-model="registration.address1" placeholder="">
+                        </label>
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Address 2 </span>
+                            <input type="text" ng-model="registration.address2">
+                        </label>
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Town/City <span style="color: #EC1839">*</span></span>
+                            <input type="text" ng-model="registration.town" value="">
+                        </label>
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">County </span>
+                            <input type="text" ng-model="registration.country" placeholder="">
+                        </label>
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Password <span style="color: #EC1839"> *</span></span>
+                            <input type="password" ng-model="registration.password" value="" placeholder="">
+                        </label>
+
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Confirm Password <span style="color: #EC1839"> *</span></span>
+                            <input type="password" ng-model="registration.password2" ng-blur="matchPassword()" placeholder="">
+                        </label>
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Between 6 to 16 characters</span>
+                            <p></p>
+                        </label>
+                        <div class="ptb-10">
+
+                            <button class="button button-full button-positive" ng-click="registration()">CREATE MY ACCOUNT</button>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </ion-list>
+    <!-- end registration page  -->
+
+
+    <!-- start user profile details page  -->
+        <ion-list ng-if="pageid==12">
+            <section class="ac-container">
+
+                <div class="list ">
+                    <div class="card cartCard" style="margin-top:4px;background-color:#5A0B0B">
+                        <div class="item item-divider" style="padding-left:2px">
+                            <span><i class="ion-compose"></i> Your Details</span>
+                        </div>
+                        <div class="list ">
+                            <label class="item item-input cart_view_input">
+                                <span class="input-label">First Name <span style="color: #EC1839"> *</span></span>
+                                <input type="text" placeholder="First Name" ng-model="user.first_name">
+                            </label>
+                            <label class="item item-input cart_view_input">
+                                <span class="input-label">Last Name <span style="color: #EC1839"> *</span></span>
+                                <input type="text" placeholder="Last Name" ng-model="user.last_name">
+                            </label>
+                            <label class="item item-input cart_view_input">
+                                <span class="input-label">Mobile <span style="color: #EC1839"> *</span></span>
+                                <input type="tel" placeholder="Mobile" ng-model="user.mobile_no">
+                            </label>
+                            <label class="item item-input cart_view_input">
+                                <span class="input-label">Telephone No <span style="color: #EC1839"> </span></span>
+                                <input type="tel" placeholder="Telephone No" ng-model="user.telephone_no">
+                            </label>
+                            <label class="item item-input cart_view_input">
+                                <span class="input-label">Postcode <span style="color: #EC1839"> *</span></span>
+                                <input type="text" placeholder="PostCode" ng-model="user.postcode">
+                            </label>
+                            <label class="item item-input cart_view_input">
+                                <span class="input-label">Address1 <span style="color: #EC1839"> *</span></span>
+                                <input type="text" placeholder="Address1" ng-model="user.address1">
+                            </label>
+                            <label class="item item-input cart_view_input">
+                                <span class="input-label">Address2 <span style="color: #EC1839"> </span></span>
+                                <input type="text" placeholder="Address2" ng-model="user.address2">
+                            </label>
+                            <label class="item item-input cart_view_input">
+                                <span class="input-label">City <span style="color: #EC1839"> *</span></span>
+                                <input type="text" placeholder="Town" ng-model="user.town">
+                            </label>
+                            <!--   <label class="item item-input">
+        <span class="input-label">City <span style="color: #EC1839"> *</span></span> <input type="text" placeholder="City" ng-model="user.city">
+        </label> -->
+                            <label class="item item-input cart_view_input">
+                                <span class="input-label">Country <span style="color: #EC1839"> </span></span>
+                                <input type="text" placeholder="Country" ng-model="user.country">
+                                <input type="hidden" ng-model="user.date_of_birth">
+                                <input type="hidden" ng-model="user.date_of_anniversery">
+                            </label>
+                            <label class="item item-input">
+
+                                <button class="button button-full button-positive" ng-click="UpdateUserDetails()" style="margin-right:5px;text-align:center">SAVE CHANGE</button>
+                               <!--  <input type="submit"  value="SAVE CHANGE" ng-click="UpdateUserDetails()" class="button button-full button-positive"> -->
+                            </label>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </ion-list>
+    <!-- end user profile details page  -->
+
+
+    <!-- start user profile default page  -->
+        <ion-list ng-if="pageid==3">
+            <div class="list">
+                <div class="item item">
+                    <a> <i class="ion-person" style="font-size:46px"></i>
+                        <!-- <button  ng-click="showmodal()" class="button  button-small button-assertive" style="float:right;margin-right:2px">
+        <i class="icon ion-edit"></i>
+        </button> -->
+                        <!--        <button class="button  button-small button-assertive" style="float:right;margin-right:2px">
+        <i class="icon ion-ios7-telephone"></i>
+        </button> -->
+                        <h2>{{user.first_name}}<span ng-if="user.last_name!='undefined'"> {{user.last_name}}</span></h2>
+                        <p>{{user.address1}}, {{user.address2}}{{user.postcode}} </p>
+                    </a>
+                </div>
+
+                <!--   <div class="item item-body" style="overflow:scroll">
+        <div class="list">
+          <p ng-show="prvloading"style="font-weight:bold">Loading...</p>
+        <a href="#/tab/myaccount/6" ng-click="PreviousOrderInDetails(item.order_no)" class="item item"  ng-repeat="item in previousOrders">
+        <p style="font-weight:bold">Order No:{{item.order_no}} </p>
+        <span class="badge badge-assertive">&pound;{{item.grand_total | number:2}}</span>
+               <p>Payment Method:{{item.payment_method}}</p>
+              <p>Date:{{item.order_date}}</p>
+            </a>
+
+                <div class="card" ng-if="msg==1">
+                <div class="item item-divider">
+                  Message
+                </div>
+                <div class="item item-text-wrap">
+                  <i class="icon ion-alert-circled" style="font-size:36px"></i> You have no previous order.
+                </div>
+                <div class="item item-divider">
+
+                </div>
+              </div>
+        </div>
+          </div> -->
+                <div class="list">
+                    <div class="liststyle"></div>
+                    <a class="item item-icon-left liststyle" href="#/tab/favourite/12">
+                        <i class="icon ion-person"></i> Profile
+                    </a>
+
+                    <a class="item item-icon-left item-icon-right liststyle" href="#/tab/favourite/10">
+                        <i class="icon ion-bag"></i> Order History
+                        <i class="icon ion-ios-telephone-outline"></i>
+                    </a>
+
+                    <a class="item item-icon-left liststyle" href="#/tab/favourite/5">
+                        <i class="icon ion-heart"></i> My Favourite
+                                <span class="item-note">
+
+            </span>
+                    </a>
+
+                    <a class="item item-icon-left liststyle" href="#/tab/reset/4">
+                        <i class="icon ion-compose"></i> Change Password
+                        <span class="badge badge-assertive"></span>
+                    </a>
+
+                    <a class="item item-icon-left liststyle" href="#/tab/signout/7">
+                        <i class="icon ion-log-out"></i> Logout
+                        <span class="badge badge-assertive"></span>
+                    </a>
+
+                </div>
+            </div>
+        </ion-list>
+    <!-- end user profile default page  -->
+
+
+        <ion-list ng-if="pageid==4">
+            <section class="ac-container">
+                <div class="card">
+                    <div class="list list-inset">
+
+                        <label class="item item-input">
+                            <i class="icon ion-locked placeholder-icon"></i>
+                            <input type="password" placeholder="Old password" ng-model="reset.oldpassword">
+                        </label>
+                        <label class="item item-input">
+                            <i class="icon ion-locked placeholder-icon"></i>
+                            <input type="password" placeholder="New password" ng-model="reset.newpassword">
+                        </label>
+                        <label class="item item-input">
+                            <i class="icon ion-locked placeholder-icon"></i>
+                            <input type="password" placeholder="Confirm password" ng-model="reset.confirmpassword">
+                        </label>
+                        <button class="button button-full button-positive" ng-click="ResetPassword()">
+                            Save Change
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </ion-list>
+
+        <ion-list ng-if="pageid==10">
+            <div class="item item-body" style="overflow:scroll">
+                <div class="list cartView">
+                    <p ng-show="prvloading" style="font-weight:bold">Loading...</p>
+                    <a href="#/tab/myaccount/6" ng-click="PreviousOrderInDetails(item.order_no)" class="item item liststyle" ng-repeat="item in previousOrders">
+                        <p style="font-weight:bold">Order No:{{item.order_no}} </p>
+                        <span class="badge badge-assertive">&pound;{{item.grand_total | number:2}}</span>
+                        <p>Payment Method:{{item.payment_method}}</p>
+                        <p>Date:{{item.order_date}}</p>
+                    </a>
+
+                    <div class="card" ng-if="msg==1">
+                        <div class="item item-divider">
+                            Message
+                        </div>
+                        <div class="item item-text-wrap">
+                            <i class="icon ion-alert-circled" style="font-size:36px"></i> You have no previous order.
+                        </div>
+                        <div class="item item-divider">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ion-list>
+
+        <ion-list ng-if="pageid==5">
+            <ion-list ng-repeat="item in datalist">
+            
+                <ion-list ng-repeat="e in item.cus_fav_dish">
+                    <ion-item style="border-bottom:1px #999;border-style:normal">
+                        <div class="row">
+                            <!--  <i class="icon" ng-class="isGroupShown(e) ? 'ion-minus' : 'ion-plus'"></i> -->
+                            <div class="col col-75 item-catagory-content">
+                                <h2>
+                                  {{e.fav_id}}  {{e.Dish_Name}}
+                                    <p>{{e.Dish_Description}}</p></h2>
+                            </div>
+                            <div class="col item-catagory-left-box">
+
+                                <p>&pound;{{e.Dish_Price}}</p>
+                               
+                                 <button ng-click="removeFavItem(item.fav_id)" class="button button-small button-positive" style="background-color:#520606">
+                                    <i class="ion-trash-a"></i>
+                                </button>
+                                 <button ng-if="e.Options" ng-click="showOption(e.Dish_id,e.Dish_Name)" class="button button-small button-positive">
+                                OPTION <i class="ion-chevron-right"></i>
+                            </button> 
+
+                                <button ng-if="e.Options==null" ng-click="addItemInCart(e.Dish_id,e.Dish_Name,e.Dish_Price,'')" class="button button-small button-positive">
+                                    Order <i class="ion-plus-round"></i>
+                                </button>
+
+                               
+                            </div>
+                        </div>
+                    </ion-item>
+                </ion-list>
+            </ion-list>
+
+            <div class="card" ng-if="msg==1">
+                <div class="item item-divider cartHeader">
+                    Message
+                </div>
+                <div class="item item-text-wrap">
+                    <i class="icon ion-alert-circled" style="font-size:36px"></i> Empty favourite list.
+                </div>
+                <div class="item item-divider cartfooter">
+
+                </div>
+            </div>
+        </ion-list>
+
+        <ion-list ng-if="pageid==6">
+            <div class="card">
+                <div class="item item-divider cartHeader">
+                    Order in Details
+                </div>
+                <div class="item item-text-wrap">
+                    <div class="list">
+
+                    </div>
+                    <div ng-repeat="item in orderdetails.order">
+                        <ul class="list" ng-if="item.order_no">
+                             <li class="item" style="padding:1px">{{item.order_type}} Date: {{item.order_date}}</li>
+                             <li class="item" style="padding:1px">{{item.order_type}} Time: {{item.delivery_time}}</li>
+                            <li class="item" style="padding:1px">Payment Method: {{item.payment_method}}</li>
+                            <li class="item" style="padding:1px">Order Type: {{item.order_type}}</li>
+                            <li class="item" style="padding:1px">Payment Status: {{item.payment_status}}</li>
+                        </ul>
+                        <table style="width:100%" class="cart_table" ng-if="item.ordered_dish">
+                            <thead>
+                            <tr>
+                                <th>Qt</th>
+                                <th>Dish Name</th>
+                                <th>Price</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="order_item in item.ordered_dish.dish_choose">
+                                <th>{{order_item.quantity}}</th>
+                                <th>{{order_item.dish_name}}</th>
+                                <th>&pound;{{order_item.dish_price*order_item.quantity | number:2}}</th>
+                                <th></th>
+                            </tr>
+                            <tr  ng-if="item.offer_text">
+                                <th>1</th>
+                                <th>{{item.offer_text}}</th>
+                                <th>&pound;0.00</th>
+                              <th></th>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="5"></td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="item item-divider cartfooter" ng-repeat="item in orderdetails.order">
+                     <div><strong>Sub Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</strong> &pound;{{item.sub_total | number:2}}</div>
+                     <div><strong>Discount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</strong> &pound;{{item.discount_amount | number:2}}</div>
+                     <div><strong>Total Amount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   :</strong> &pound;{{grand_total | number:2}}</div>
+                </div>
+            </div>
+
+        </ion-list>
+
+    </ion-content>
+</ion-view>

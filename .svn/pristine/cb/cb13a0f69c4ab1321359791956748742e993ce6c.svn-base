@@ -1,0 +1,325 @@
+<?php
+/**
+* Author Nazrul
+*/
+require 'Rest.inc.php';
+class Config extends REST
+{
+	private  $DB_HOST = '127.0.0.1';
+	private  $DB_USER = 'mobile_res';
+	private  $DB_PASS = 'Hg2?c3h4';
+	private  $DB_NAME = 'mobile_responsive';
+	
+
+	private $mysqli ='';
+	function __construct()
+	{
+		$this->mysqli = new mysqli($this->DB_HOST, $this->DB_USER, $this->DB_PASS, $this->DB_NAME);
+		mysqli_set_charset($this->mysqli,"utf8");
+	}
+	public function TiggerAPI()
+	{
+		
+		 header("Access-Control-Allow-Origin: *");
+		if (empty($_REQUEST['x'])) {
+			$_REQUEST['x']="redirectUrl";
+		}
+			$func = strtolower(trim(str_replace("/","",$_REQUEST['x'])));
+			if((int)method_exists($this,$func) > 0)
+				$this->$func();
+			else
+				$this->response('',404); 
+	}
+
+	public function CartProcess()
+	{
+		session_start();
+		header('Access-Control-Allow-Headers: Content-Type');
+        header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
+		$session_id = session_id();
+
+		$ses = mysqli_real_escape_string($this->mysqli,$_REQUEST['session_id']);
+		if($ses!='null')
+		{
+			$session_id=$ses;
+		}
+		$item_id = mysqli_real_escape_string($this->mysqli,$_REQUEST['item_id']);
+		$item_name = mysqli_real_escape_string($this->mysqli,$_REQUEST['item_name']);
+		$item_qty = mysqli_real_escape_string($this->mysqli,$_REQUEST['item_qty']);
+		$item_price = mysqli_real_escape_string($this->mysqli,$_REQUEST['item_price']);
+		$total_price=0;
+		$total_qty=0;
+		$query="SELECT cart_id,item_quantity,item_price,single_price,item_id,session_id FROM shopping_cart WHERE session_id='".$session_id."' AND item_id='".$item_id."'";
+		$result = $this->mysqli->query($query);
+		$this->mysqli->set_charset("utf8");
+		$arr = array();
+		if($result->num_rows > 0) 
+		{
+			$row = $result->fetch_assoc();
+			/*print_r($row);
+			exit;*/
+			$total_price=$item_price+$row['item_price'];
+			$total_qty=$item_qty+$row['item_quantity'];
+			/*echo($total_price." ".$total_qty);
+			exit;*/
+			$query ="UPDATE  `shopping_cart` SET  `item_quantity` =  '$total_qty',`item_price` =  '$total_price' WHERE  `session_id` ='".$session_id."' AND item_id='".$item_id."'";
+			$r=$this->mysqli->query($query) or die($this->mysqli->error.__LINE__);
+			if ($r)
+			{
+				$success = array('status' => "success", "session_id" => $session_id);
+				echo json_encode($success);
+			}
+			
+		}
+		else
+		{
+			
+			if($item_id!=null)
+			{
+				$query ="INSERT INTO shopping_cart(item_id,item_name,item_quantity,item_price,single_price,session_id)values('".$item_id."','".$item_name."','".$item_qty."','".$item_price."','".$item_price."','".$session_id."')";
+				$r=$this->mysqli->query($query) or die($this->mysqli->error.__LINE__);
+				if ($r) 
+				{
+					$success = array('status' => "success", "session_id" => $session_id);
+					echo json_encode($success);
+				}
+			   	 mysqli_close($this->mysqli);
+			}
+		}
+	}
+	public function showNumOfCartItem()
+	{
+		header('Access-Control-Allow-Headers: Content-Type');
+        header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
+		$data = json_decode(file_get_contents("php://input"));
+		$session_id = mysqli_real_escape_string($this->mysqli,$data->session_id);
+		$grand_total=0.00;
+		$query="SELECT id FROM shopping_cart WHERE session_id='".$session_id."' and is_checkout=0";
+		$result = $this->mysqli->query($query);
+		$this->mysqli->set_charset("utf8");
+		$arr= array();
+		if($result->num_rows > 0) 
+		{
+			$arr['total_item']=$result->num_rows;
+		}
+		else
+		{
+			$arr['total_item']=0;
+			$arr["status"]=0; 
+		}
+		
+		$json_response = json_encode($arr);
+		echo $json_response;
+	}
+	public function ShowCartData()
+	{
+		header('Access-Control-Allow-Headers: Content-Type');
+        header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
+		$session_id = mysqli_real_escape_string($this->mysqli,$_REQUEST['session_id']);
+		/**/
+		$grand_total=0.00;
+		$total_item=0;
+		$query="SELECT cart_id,item_name,item_quantity,item_price,single_price,item_id,session_id FROM shopping_cart WHERE session_id='".$session_id."' and is_checkout=0";
+		$result = $this->mysqli->query($query);
+		$this->mysqli->set_charset("utf8");
+		$arr["OrderList"] = array();
+		if($result->num_rows > 0) 
+		{
+			while($row = $result->fetch_assoc())
+			{
+				$cart = array();
+				$grand_total=$grand_total+$row['item_price'];
+				$total_item=$total_item+$row['item_quantity'];
+				$cart['id'] =$row['cart_id'];
+				$cart['DishId']=$row['item_id'];
+				$cart['item_name'] =$row['item_name'];
+				$cart['DishCount'] =$row['item_quantity'];
+				$cart['item_price'] =$row['item_price'];
+				$cart['single_price'] =$row['single_price'];
+				array_push($arr["OrderList"],$cart);
+			}
+			$arr["total_amount"]=$grand_total;
+			$arr["status"]=1; 
+			$arr['total_item']=$total_item;
+		}
+		else
+		{
+			$grand_total=0.00;
+			$arr['total_item']=0;
+			$arr["status"]=0; 
+		}
+		$json_response = json_encode($arr);
+		echo $json_response;
+	}
+	
+	public function RemoveItemFromCart()
+	{
+		header('Access-Control-Allow-Headers: Content-Type');
+        header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
+		$cart_id = mysqli_real_escape_string($this->mysqli,$_REQUEST['cart_id']);
+		$item_qty = mysqli_real_escape_string($this->mysqli,$_REQUEST['item_qty']);
+		$item_price = mysqli_real_escape_string($this->mysqli,$_REQUEST['item_price']);
+		$single_price = mysqli_real_escape_string($this->mysqli,$_REQUEST['single_price']);
+		
+		if($item_qty>=1)
+		{
+			$new_item_price=$item_qty*$single_price;
+			$new_item_qty=$item_qty;
+			if(self::updateCart($cart_id,$new_item_qty,$new_item_price)==1)
+			{
+				self::ShowCartData();
+			}
+		}
+		/*else
+		{
+			if(self::RemovItem($cart_id))
+			{
+				self::ShowCartData();
+			}
+		}*/
+	}
+	private function updateCart($id,$item_qty,$item_price)
+	{
+		$query ="UPDATE  `shopping_cart` SET  `item_quantity` =  '$item_qty',`item_price` =  '$item_price' WHERE  `cart_id` =$id";
+		$r=$this->mysqli->query($query) or die($this->mysqli->error.__LINE__);
+		if ($r)
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	
+	public function RemovItem()
+	{
+		$cart_id = mysqli_real_escape_string($this->mysqli,$_REQUEST['cart_id']);
+		$query ="DELETE from shopping_cart WHERE cart_id='".$cart_id."'";
+		$r=$this->mysqli->query($query) or die($this->mysqli->error.__LINE__);
+		if ($r)
+		{
+			self::ShowCartData();
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	
+
+	
+	public function login()
+	{
+	echo"hello";
+	}
+
+
+	public function page()
+	{
+		$query="SELECT *FROM cms_page";
+		$result = $this->mysqli->query($query);
+		$this->mysqli->set_charset("utf8");
+		$arr["OrderList"] = array();
+		if($result->num_rows > 0) 
+		{
+			while($row = $result->fetch_assoc())
+			{
+					echo $row["cms_page_title"]."<br>";
+			}
+		}
+	}
+
+
+
+	
+		public function LeftNavigation()
+	{
+		header('Access-Control-Allow-Headers: Content-Type');
+        header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
+
+		$query="SELECT id,parent_id,cms_page_title FROM cms_page WHERE status=1 and parent_id=0 order by sort asc";
+		$result = $this->mysqli->query($query);
+		$this->mysqli->set_charset("utf8");
+		$arr= array();
+		if($result->num_rows > 0) 
+		{
+			while($row = $result->fetch_assoc())
+			{
+						if($row['cms_page_title']!="Order Online")
+						{
+							$arr[]=$row;
+						}
+			}
+			$json_response = json_encode($arr);
+		    echo $json_response;
+		}
+		
+	}
+			public function GetPageContent()
+			{
+				
+				header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
+				$req_id=$_REQUEST['rid'];
+				$query="SELECT *FROM cms_page where id='".$req_id."'";
+				$result = $this->mysqli->query($query);
+				$this->mysqli->set_charset("utf-8");
+					$arr['page']= array();
+				if($result->num_rows > 0) 
+				{
+					$html="";
+					while($row = $result->fetch_assoc())
+					{
+						
+						$html.=$row['cms_content'];
+						echo $row['cms_content'];
+					}
+				}
+			}
+			
+			public function HomePage()
+			{
+				$query="SELECT nav_content FROM restaurant_nav WHERE id=1";
+				$result = $this->mysqli->query($query);
+				$this->mysqli->set_charset("utf-8");
+			
+					$html="";
+					$row = $result->fetch_assoc();
+					echo  $row['nav_content'];
+			}
+			
+			public function ContactPage()
+			{
+				$query="SELECT *FROM cms_page WHERE cms_page_title LIKE '%Contact%'";
+				$result = $this->mysqli->query($query);
+				$this->mysqli->set_charset("utf-8");
+				$row = $result->fetch_assoc();
+					$html="";
+					$html.=$row['cms_content'];
+				   echo $row['cms_content'];
+			}
+			
+			public function MobileCMSSetting()
+			{
+				header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
+				$query="SELECT *FROM mobile_setting";
+				$result = $this->mysqli->query($query);
+				$this->mysqli->set_charset("utf-8");
+				if($result->num_rows > 0) 
+				{
+					$html="";
+					while($row = $result->fetch_assoc())
+					{
+						$html.=$row['css_class'];
+						$html.="{";
+						$html.=$row['css_property'];
+						$html.="}";
+					}
+					echo $html;
+				}
+			}
+			
+}	
+$obj=new Config();
+$obj->TiggerAPI();
+?>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="F:\ionic\test\platforms\android\build\intermediates\exploded-aar\android\CordovaLib\unspecified\debug\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="07532f6304e3b051a4e961281134615c80b437b7">
+        <dex dex="F:\ionic\test\platforms\android\build\intermediates\pre-dexed\debug\classes-1cbbf67674496c74daf007e47dd6e83f27849250.jar" />
+    </item>
+    <item
+        jar="F:\ionic\test\platforms\android\libs\PayPalAndroidSDK-2.9.5.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4f0a3e3f3fda51ced78404438b0cde634407c826">
+        <dex dex="F:\ionic\test\platforms\android\build\intermediates\pre-dexed\debug\PayPalAndroidSDK-2.9.5-0a20155b84d071c712dd679ac12909dc5eda1d44.jar" />
+    </item>
+    <item
+        jar="F:\ionic\test\platforms\android\build\intermediates\exploded-aar\android\CordovaLib\unspecified\debug\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="07532f6304e3b051a4e961281134615c80b437b7">
+        <dex dex="F:\ionic\test\platforms\android\build\intermediates\pre-dexed\debug\classes-1cbbf67674496c74daf007e47dd6e83f27849250.jar" />
+    </item>
+
+</items>

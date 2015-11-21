@@ -1,0 +1,5 @@
+ <ion-view title="Welcome">
+    <ion-content style="margin-top:20%" >
+      {{content}}
+    </ion-content>
+  </ion-view>

@@ -1,0 +1,94 @@
+     <ion-view title="">
+        <ion-content class="has-header">
+
+        <div class="card cartCard" style="margin-top:2px;background-color: #210508;">
+  <div class="item item-divider cartHeader">
+  <i class="ion-ios7-cart"></i>&nbsp;Minimum Order &pound;{{min_order | number:2}}
+  </div>
+  <div class="item item-text-wrap cartView">
+    <div class="list">
+        <label class="item item-radio cartOption" ng-repeat="p in policy" >
+          <input type="radio" ng-model="dev_option" ng-click="changeOrderOptionOnSelect(p.policy_id,p.policy_name,p.policy_time)"  value="{{p.policy_name}}">
+
+          <div class="item-content" ng-if="p.policy_name=='Collection'" style="text-align:center" >
+          {{p.policy_name | uppercase}} ( {{p.policy_time}} min )
+          </div>
+
+           <div class="item-content" ng-if="p.policy_name!='Collection'" style="text-align:center" >
+            {{p.policy_name | uppercase}} ( {{p.policy_time}} Min )
+          </div>
+
+          <i class="radio-icon ion-checkmark"></i>
+        </label>
+        <div >
+            <ion-scroll zooming="true" direction="y" class="cart_scroll">
+              <p style="color:#fff"> {{openstatusstr}} </p>
+          <table style="width:100%" class="cart_table">
+            <tbody ng-if="datalist.length>0">
+
+            </tbody>  
+            <tfoot>
+                <tr><td colspan="5"></td></tr>
+            </tfoot>
+        </table>
+        <ul>
+            <li ng-repeat="(key,item) in datalist" style="border-bottom:2px #cdcdcd solid;padding:5px 0px 5px">
+                <span style="margin-top:5px">{{item.item_name}}</span>
+                <div>
+                    <div>
+                   <button class="button  button-small icon ion-minus" ng-click="updateMinus(item.DishId)">
+                     
+                    </button>
+                     <span style="line-height:2">{{item.DishCount}}</span>
+
+                    <button class="button  button-small icon ion-plus" ng-click="updateAdd(item.DishId)">
+                       
+                    </button>
+                        <button class="button  button-small icon ion-close-circled" style="float:right;font-size:26px" ng-click="removeCartRow(item.DishId)"></button>
+                        <span style="float:right;padding:5px;line-height:20px">&pound;{{item.item_price*item.DishCount | number:2}}</span>
+                    </div>  
+                </div>
+            </li>
+            <li ng-if="offer_text">
+               
+                <div>
+                    <div>
+                     <span style="line-height:2">1</span>  <span style="margin-top:5px">{{offer_text}}</span>
+                        <button class="button  button-small icon ion-close-circled" style="float:right;font-size:26px" ng-click="removeOffer()"></button>
+                        <span style="float:right;padding:5px;line-height:20px">&pound; 0.00</span>
+                    </div>  
+                </div>
+            </li>
+        </ul>
+        <ion-list>
+
+    </ion-list>
+        <div ng-if="restatus==0" style="padding:15px;text-align:center">
+            <i class="ion-ios7-cart"></i> EMPTY SHOPPING CART
+
+        </div>
+
+        </ion-scroll>
+      <!-- </div> -->
+        
+      </div>
+    </div>
+
+  </div>
+  <div class="item item-divider cartfooter">
+<!--   <div><span style="line-height:30px"> Sub total: &pound; {{total_amount | number:2}}</span></div>
+  <div><span style="line-height:30px"> Discount : &pound; {{discount | number:2}}</span></div> -->
+  <div><span style="line-height:30px"> Total    : &pound; {{total_amount | number:2}}</span></div>
+
+    <a ng-show="btn_placeorder" ng-click="placeOrder()" class="button button-full  button-positive" >
+       CONTINUE
+    </a>
+
+<!--   <p style="margin:0px;color:#fff"ng-if="obtained_discount">Discount: &pound; {{obtained_discount | number:2}}</p>
+  <p style="margin:0px;color:#fff"ng-if="obtained_discount">Grand Total: &pound; {{grand_amount | number:2}}</p> -->
+  </div>
+</div>
+
+ 
+        </ion-content>
+      </ion-view>

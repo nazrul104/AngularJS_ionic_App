@@ -1,0 +1,40 @@
+
+    
+
+        <ion-modal-view>
+          <ion-header-bar style="background-color:#DE5645;">
+            <h1 class="title" style="color:#fff">Your Details</h1>
+            <div class="buttons">
+              <button class="button button-clear" ng-click="closeLogin()">Close</button>
+            </div>
+          </ion-header-bar>
+
+          <ul class="list" ng-if="isLogged==false" >
+              <li>
+                <a class="item" menu-close nav-clear href="#/tab/login">Login</a>
+              </li>
+              <li>
+                <a class="item" menu-close nav-clear href="#/tab/registration">Registration</a>
+              </li>
+            </ul>
+              </div>
+            
+            <ul class="list" ng-if="isLogged=='true'">
+              <li>
+                <a class="item" menu-close nav-clear href="#/tab/myaccount">My Account</a>
+              </li>
+              <li>
+                <a class="item" menu-close nav-clear href="#/tab/registration">Change Password</a>
+              </li>
+              <li>
+                <a class="item" menu-close nav-clear href="#/tab/registration">Order History</a>
+              </li>
+              <li>
+                <a class="item" menu-close nav-clear href="#/tab/registration">My Favourite</a>
+              </li>
+               <li>
+                <a class="item" menu-close nav-clear href="#/tab/registration">Logout</a>
+              </li>
+            </ul>
+</ion-content>
+</ion-modal-view>

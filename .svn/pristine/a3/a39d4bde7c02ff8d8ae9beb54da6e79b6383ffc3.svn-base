@@ -1,0 +1,34 @@
+      <ion-view title="Contact">
+        <ion-content>
+    <ion-list>
+        <section class="ac-container">
+            <div class="list">
+
+  <a class="item item-icon-left contact">
+    <i class="icon ion-email"></i>
+    info@chefonline.co.uk
+  </a>
+
+  <a class="item item-icon-left contact">
+    <i class="icon ion-ios7-telephone"></i>
+    {{bizzTel}}
+  </a>
+ <div class="item item-divider">
+    <i class="ion-ios7-location"></i> Address
+  </div>
+
+  <a class="item contact">
+      {{address}}
+  </a>
+
+
+</div>
+
+
+  <iframe width="100%" height="100%" frameborder="0" style="border:0"
+        src="https://www.google.com/maps/embed/v1/place?q=Curry Palace, 215 High St, Cottenham, Cambridge CB24 8QP, UK&key=AIzaSyAIzqPVWgsYi4qAxmoCwiCXr_vZ3oidyyY">
+  </iframe>
+  </section>
+    </ion-list>
+</ion-content>
+      </ion-view>

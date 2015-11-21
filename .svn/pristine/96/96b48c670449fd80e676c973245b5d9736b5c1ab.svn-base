@@ -1,0 +1,153 @@
+     <ion-view title="Order Summary">
+        <ion-content>
+
+        <div class="card cartCard">
+  <div class="item item-divider cartHeader">
+  <i class="ion-ios7-cart"></i>&nbsp;Order in Details
+<!--    <button class="button  button-small button-assertive" style="float:right;margin-right:2px">
+      <i class="icon ion-ios7-trash"></i>
+    </button>
+       <button class="button  button-small button-assertive" style="float:right;margin-right:2px">
+      <i class="icon ion-edit"></i>
+    </button>
+       <button class="button  button-small button-assertive" style="float:right;margin-right:2px">
+      <i class="icon ion-ios7-telephone"></i>
+    </button> -->
+     <a href="tel:{{restTel}}"class="button  button-small button-assertive" style="float:right">
+      <i class="icon ion-ios7-telephone"></i>
+    </a>
+  </div>
+  <div class="item item-text-wrap cartView">
+   
+    <div class="list">
+      <div class="list">
+            <div class="list">
+            <label class="item item-input" style="border-bottom:1px">
+              <span class="input-label">Delivery Date</span>
+              <input type="text"  ng-model="my.datepicker" 
+            name="datepicker" ng-click="opendateModal()" placeholder="Please Select Date">
+            </label>
+  <label class="item item-input item-select" ng-if="isRestuarentOpen==false">
+    <div class="input-label">
+      Delivery Time
+    </div>
+
+    <select ng-model="my.pre_order_delivery_time">
+       <option value="">SELECT TIME</option>
+            <option value="1435145400">12:30 PM</option>
+            <option value="1435146300">12:45 PM</option>
+            <option value="1435147200">01:00 PM</option>
+            <option value="1435148100">01:15 PM</option>
+            <option value="1435149000">01:30 PM</option>
+            <option value="1435163400">05:30 PM</option>
+            <option value="1435164300">05:45 PM</option>
+            <option value="1435165200">06:00 PM</option>
+            <option value="1435166100">06:15 PM</option>
+            <option value="1435167000">06:30 PM</option>
+            <option value="1435167900">06:45 PM</option>
+            <option value="1435168800">07:00 PM</option>
+            <option value="1435169700">07:15 PM</option>
+            <option value="1435170600">07:30 PM</option>
+            <option value="1435171500">07:45 PM</option>
+            <option value="1435172400">08:00 PM</option>
+            <option value="1435173300">08:15 PM</option>
+            <option value="1435174200">08:30 PM</option>
+            <option value="1435175100">08:45 PM</option>
+            <option value="1435176000">09:00 PM</option>
+            <option value="1435176900">09:15 PM</option>
+            <option value="1435177800">09:30 PM</option>
+            <option value="1435178700">09:45 PM</option>
+            <option value="1435179600">10:00 PM</option>
+            <option value="1435180500">10:15 PM</option>
+            <option value="1435181400">10:30 PM</option>
+            <option value="1435182300">10:45 PM</option>
+            <option value="1435183200">11:00 PM</option>
+    </select>
+   
+  </label>
+    <label class="item item-input" ng-if="isRestuarentOpen==true">
+              <span class="input-label">Delivery Time</span>
+
+              <input  type="text" placeholder="Delivery Time"  ng-model="my.devtime">
+   </label>
+
+             <label class="item item-input ">
+              <span class="input-label">Delivery Address</span>
+              <input type="text" placeholder="Delivery Address"  ng-model="my.address">
+            </label>
+             <label class="item item-input ">
+              <span class="input-label">Order Option</span>
+              <input type="text" placeholder="Order Option"  ng-model="my.order_option">
+            </label>
+          </div>
+      </div>
+        <div >
+           <table style="width:100%" class="cart_table">
+            <thead>
+              <tr>
+                <th>Qt</th>
+                <th>Dish Name</th>
+                <th>Price</th>
+                <th></th>
+              </tr>
+            </thead>
+             <tbody ng-if="datalist.length>0">
+                <tr ng-repeat="(key,item) in datalist">
+                    <th>
+        <input type="number" value="{{item.DishCount}}" id="itemQtn{{key}}"   ng-blur="updateQuantity(key,item.id,item.item_price,item.single_price)" style="width:40px;background-color:#555;text-align:center;color:#fff" min="1">
+                      </th>
+                    <th>{{item.item_name}}</th>
+                    <th>&pound;{{item.item_price}}</th>
+                  <th><i class="ion-close-circled" style="cursor:pointer;font-size:20px" ng-click="removecartItem(item.id)"><i></th>
+                </tr>
+            </tbody>  
+            <tfoot>
+                <tr><td colspan="5"></td></tr>
+            </tfoot>
+        </table>
+        <div ng-if="restatus==0" style="padding:15px;text-align:center">
+            <i class="ion-ios7-cart"></i> EMPTY SHOPPING CART
+        </div>
+      </div>
+<div class="list">
+
+  <label class="item item-radio cartOption">
+    <input type="radio" name="group"  ng-click="checkPaymentOption(0)" value="Cash">
+    <div class="item-content">
+     Cash
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label>
+
+  <label class="item item-radio">
+    <input type="radio" name="group" ng-click="checkPaymentOption(1)">
+    <div class="item-content">
+     Paypal
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label>
+</div>
+
+<label class="item item-input">
+              <span class="input-label">Comments</span>
+              <input type="text" ng-model="my.comments"  placeholder="Please put your comment here.">
+ </label>
+ <label class="item item-input" ng-if="paypal_transection_id">
+              <span class="input-label">PayPal Transaction ID:</span>
+              <input type="text" ng-model="paypal_transection_id"  placeholder="">
+ </label>
+    </div>
+
+  </div>
+  <div class="item item-divider cartfooter">
+   Total:&pound; {{total_amount | number:2}}
+    <a ng-click="confirmPlaceOrder()" id="buyNowBtn" class="button button-small button-assertive" style="float:right">
+       Confirm Order
+    </a>
+    <input type="hidden" id="grndamount" value="{{grand_amount}}">
+    <p style="margin:0px"ng-if="obtained_discount">Discount: &pound; {{obtained_discount | number:2}}</p>
+  <p style="margin:0px"ng-if="grand_amount">Grand Total: &pound; {{grand_amount | number:2}}</p>
+  </div>
+</div>
+</ion-content>
+</ion-view>

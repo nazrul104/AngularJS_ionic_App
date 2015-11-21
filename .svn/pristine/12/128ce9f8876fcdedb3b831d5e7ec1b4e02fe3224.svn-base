@@ -1,0 +1,6 @@
+   <ion-view title="Welcome">
+    <ion-content style="margin-top:20%" >
+  <test content="pageid"></test>
+
+    </ion-content>
+  </ion-view>

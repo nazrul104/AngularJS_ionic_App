@@ -1,0 +1,72 @@
+     <ion-view title="Reservation">
+        <ion-content>
+          <section class="ac-container">
+            
+                   <div class="list card">
+                    <form ng-submit="addReservation()">
+                <label class="item item-input">
+                    <span class="input-label">Full Name<span style="color: #EC1839"> *</span></span>
+                    <input type="text"  ng-model="res.fname" autofocus placeholder="Elliot John Gleave">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Email Address <span style="color: #EC1839"> *</span></span>
+                  <input type="email" ng-model="res.email" placeholder="example@chefonline.co.uk">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Mobile No <span style="color: #EC1839"> *</span></span>
+                  <input type="text" ng-model="res.mobile" placeholder="07x-xxx-xxx-xx">
+                </label>
+              
+
+                <label class="item item-input">
+                    <span class="input-label">Date <span style="color: #EC1839"> *</span></span>
+                    <input type="text"  ng-model="res.datepicker" 
+            name="datepicker" ng-click="opendateModal()" placeholder="Please Select Date">
+                </label>
+   
+                   <label class="item item-input">
+                    <span class="input-label">Time <!-- <span style="color: #EC1839"> *</span> --></span>
+                    <select  style="border:0px" ng-model="res.mytime">
+                                  <option value="">Select Time</option>
+                                    <option value="5:30 PM">5:30 PM</option>
+                                    <option value="5:45 PM">5:45 PM</option>
+                                    <option value="6:00 PM">6:00 PM</option>
+                                    <option value="6:15 PM">6:15 PM</option>
+                                    <option value="6:30 PM">6:30 PM</option>
+                                    <option value="6:45 PM">6:45 PM</option>
+                                    <option value="7:00 PM">7:00 PM</option>
+                                    <option value="7:15 PM">7:15 PM</option>
+                                    <option value="7:30 PM">7:30 PM</option>
+                                    <option value="7:45 PM">7:45 PM</option>
+                                    <option value="8:00 PM">8:00 PM</option>
+                                    <option value="8:15 PM">8:15 PM</option>
+                                    <option value="8:30 PM">8:30 PM</option>
+                                    <option value="8:45 PM">8:45 PM</option>
+                                    <option value="9:00 PM">9:00 PM</option>
+                                    <option value="9:15 PM">9:15 PM</option>
+                                    <option value="9:30 PM">9:30 PM</option>
+                                    <option value="9:45 PM">9:45 PM</option>
+                                    <option value="10:00 PM">10:00 PM</option>
+                                    <option value="10:15 PM">10:15 PM</option>
+                                    <option value="10:30 PM">10:30 PM</option>
+                                    <option value="10:45 PM">10:45 PM</option>
+                                    <option value="11:00 PM">11:00 PM</option>
+                                </select>
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Number of guest </span>
+                  <input type="text" ng-model="res.guest">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Special Request</span>
+                  <input type="text" ng-model="res.special_req" placeholder="Your request text">
+                </label>
+                <div class="padding">
+                    <input type="submit" value="Submit" class="button button-block login-btn btnsubmit" >
+                </div>
+              </form>
+            </div>
+            
+        </section>
+        </ion-content>
+      </ion-view>

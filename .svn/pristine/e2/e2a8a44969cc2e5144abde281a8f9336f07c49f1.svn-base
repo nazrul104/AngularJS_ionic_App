@@ -1,0 +1,79 @@
+     <ion-view title="Your Order">
+        <ion-content>
+
+        <div class="card cartCard">
+  <div class="item item-divider cartHeader">
+  <i class="ion-ios7-cart"></i>&nbsp;Minimum Order &pound;{{min_order | number:2}}
+   <a href="tel:{{restTel}}"class="button  button-small button-assertive" style="float:right">
+      <i class="icon ion-ios7-telephone"></i>
+    </a>
+  </div>
+  <div class="item item-text-wrap cartView">
+    <div class="list">
+
+        <label class="item item-radio cartOption" ng-repeat="p in policy" >
+          <input type="radio" ng-model="dev_option" ng-click="changeOrderOptionOnSelect(p.policy_id,p.policy_name)"  value="{{p.policy_name}}">
+          <div class="item-content" >
+            {{p.policy_name}} ( {{p.policy_time}} Min )
+          </div>
+          <i class="radio-icon ion-checkmark"></i>
+        </label>
+
+        <div >
+           <table style="width:100%">
+            <thead>
+              <tr>
+                <th>Qt</th>
+                <th>Dish Name</th>
+                <th>Price</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody ng-if="datalist.length>0">
+                <tr ng-repeat="item in datalist">
+                    <th>{{item.DishCount}}</th>
+                    <th>{{item.item_name}}</th>
+                    <th>{{item.item_price}}</th>
+                  <th><i class="ion-close-circled" style="cursor:pointer" ng-click="removecartItem({{item.id}},{{item.DishCount}},{{item.item_price}},{{item.single_price}})"><i></th>
+                </tr>
+                <tr ng-if="offers" ng-repeat="offItem in offers">
+                    <td><img src="{{offItem.image}}" style="width:25px;height:25px"></td>
+                    <td>{{offItem.offer_title}}</td>
+                    <td class="button button-small button-assertive" ng-click="DoAccept(1,offItem.offer_title)">Accept</td>
+                    <td>    
+                    </td>
+                </tr>
+                  <tr ng-if="discounts" ng-repeat="disItem in discounts">
+                    <td><img src="{{offItem.e.image}}" style="width:25px;height:25px"></td>
+                    <td> {{disItem.discount_title}}</td>
+                    <td class="button button-small button-assertive" ng-click="DoAccept(2,'')">Accept</td>
+                    <td>
+                       
+                    </td>
+                </tr>
+            </tbody>  
+            <tfoot>
+                <tr><td colspan="5"></td></tr>
+            </tfoot>
+        </table>
+        <div ng-if="restatus==0" style="padding:15px;text-align:center">
+            <i class="ion-ios7-cart"></i> EMPTY SHOPPING CART
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="item item-divider cartfooter">
+   Total: &pound; {{total_amount | number:2}}
+    <a ng-click="placeOrder()" class="button button-small button-assertive" style="float:right">
+        PLACE ORDER
+    </a>
+  <p style="margin:0px"ng-if="obtained_discount">Discount: &pound; {{obtained_discount | number:2}}</p>
+  <p style="margin:0px"ng-if="grand_amount">Grand Total: &pound; {{grand_amount | number:2}}</p>
+  </div>
+</div>
+
+
+ 
+        </ion-content>
+      </ion-view>

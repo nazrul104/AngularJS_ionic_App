@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Cancel</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script type="text/javascript">
+		function closeCurrentWindow()
+		{
+		 window.open('', '_self', ''); //bug fix
+		window.close();
+		}
+		window.onload=function()
+		{
+			window.localStorage.setItem("paypal_status","0");
+		}
+</script>
+  </head>
+  <body>
+			<div class="jumbotron">
+			<div class="page-header" style="text-align:center">
+			  <h1><small>You have cancelled PayPal payment.You can back to cart closing this window</small></h1>
+			<button type="button" class="btn btn-primary btn-lg" onclick="closeCurrentWindow()">Close window</button>
+			</div>
+		</div>
+
+  </body>
+</html>

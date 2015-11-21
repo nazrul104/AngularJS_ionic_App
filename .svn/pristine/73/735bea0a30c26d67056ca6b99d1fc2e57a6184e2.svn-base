@@ -1,0 +1,52 @@
+     <ion-view title="OrderOnline" ng-init="showPopup()">
+        <ion-content ng-init="CartshowPopup()">
+             <ion-slide-box auto-play="true" does-continue="true" style="height:250px">
+   <ion-slide>
+       <img src='img/banner/banner_img1.jpg'>
+    </ion-slide>
+
+    <ion-slide ng-repeat="sliderItem in slider">
+       <img src='{{sliderItem}}'>
+    </ion-slide>
+</ion-slide-box>
+                <ion-list  ng-repeat="item in datalist">
+                <ion-list ng-repeat="e in item.category">
+                <ion-item class="item-stable"
+                   ng-click="toggleGroup(e)"
+                ng-class="{active: isGroupShown(e)}">
+              <i class="icon" ng-class="isGroupShown(e) ? 'ion-minus' : 'ion-plus'"></i>
+            {{e.Category_Name}}
+          </ion-item>
+            <ion-item class="item-accordion"
+                   ng-repeat="m in e.Dish_Information.ItemList"
+                ng-show="isGroupShown(e)">
+            <div class="row">
+                <div class="col col-75 item-catagory-content">
+                    <h2>{{m.Dish_Name}}</h2>
+                    <p>{{m.Dish_Description}}</p>
+                    <p>
+                     <img  ng-repeat="alg in m.Dish_Allergens track by $index"  src="img/{{alg}}.png">
+                    </p>
+                </div>
+                    <div class="col item-catagory-left-box">
+                        <p class="item-catagory-price" style="">&pound;{{m.Dish_Price}}</p>
+                        <button ng-if="m.options" ng-click="showOption(m.Dish_id)" class="button button-assertive item-catagory-btn">
+                         OPTION  <i class="ion-chevron-right"></i>
+                        </button>
+            
+                        <div ng-if="m.options==null" class="itme-order-btn">
+                            <button ng-click="addItemInCart(m.Dish_id,m.Dish_Name,m.Dish_Price)" class="button button-assertive item-catagory-btn">
+                            ORDER  <i class="ion-plus-round"></i>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+          </ion-item>
+            </ion-list>
+    </ion-list>
+    <div ng-if="networkerror==1">
+       <i class="icon ion-ios7-cloud" style="font-size:40px"></i>
+       <br>No internet connection available
+    </div>
+        </ion-content>
+      </ion-view>

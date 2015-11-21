@@ -1,0 +1,71 @@
+      <ion-view title="Order Confirmation">
+        <ion-content>
+      <ion-list>
+    <div class="card">
+        <div class="item item-divider">
+            Message
+        </div>
+
+              <div class="item item-text-wrap">
+            
+             <div class="list">
+
+               <a class="item item" href="#" ng-repeat="item in orderdetails.order" ng-if="item.msg">   
+                <div class="item item-text-wrap">
+                  <i class="icon ion-alert-circled" style="font-size:36px"></i> {{item.msg}}
+                </div>
+              </a>
+               <h3>Thank you for placing order with Curry World, an email has been sent with your order details.</h3>
+               <p ng-repeat="item in orderdetails.order" ng-if="!item.msg">Loading Order Details...</p>
+            </div>
+              <div ng-repeat="item in orderdetails.order">
+             <ul class="list"  ng-if="item.order_no">
+                <li class="item" style="padding:3px"><strong>{{item.order_type}} Date:</strong> {{item.order_date}}</li>
+                <li class="item" style="padding:3px"><strong>{{item.order_type}} Time:</strong> {{delivery_time}}</li>
+                <li class="item" style="padding:3px"><strong>Payment Method:</strong> {{item.payment_method}}</li>
+                <li class="item" style="padding:3px"><strong>Order Type:</strong>  {{item.order_type}}</li>
+                <li class="item" style="padding:3px"><strong>Payment Status :</strong> {{item.payment_status}}</li>  
+            </ul>
+          <table style="width:100%" ng-if="!item.msg">
+            <thead style="font-weight:bold;text-align:left">
+              <tr>
+                <th>Qty</th>
+                <th>Dish Name</th>
+                <th>Price</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody style="text-align:left;padding:1px 0px 1px 0px">
+                <tr ng-repeat="order_item in item.ordered_dish.dish_choose">
+                    <th>{{order_item.quantity}}</th>
+                    <th>{{order_item.dish_name}}</th>
+                    <th>&pound;{{order_item.dish_price*order_item.quantity | number:2 }}</th>
+                  <th></th>
+                </tr>
+                  <tr  ng-if="item.offer_text">
+                    <th>1</th>
+                    <th>{{item.offer_text}}</th>
+                    <th>&pound;0.00</th>
+                  <th></th>
+                </tr>
+            </tbody>  
+            <tfoot style="text-align:center;padding:1px 0px 1px 0px">
+                <tr style="padding:3px 2px 2px">
+                  <td></td>
+                <!--   <td></td> -->
+                  <td colspan="3" style="text-align:left" ng-repeat="item in orderdetails.order"><br>
+                     <div><strong>Sub Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</strong> &pound;{{sub_total | number:2}}</div>
+                     <div><strong>Discount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</strong> &pound;{{discount_amount | number:2}}</div>
+                     <div><strong>Total Amount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   :</strong> &pound;{{grand_total | number:2}}</div>
+                </td>
+              </tr>
+            </tfoot>
+        </table>
+        </div>
+   <!--       <div class="item item-divider">
+         <span ng-if="grand_total"></span> 
+        </div> -->
+      </div>
+    </ion-list>
+        </ion-content>
+      </ion-view>

@@ -1,0 +1,101 @@
+<ion-view title="{{myTitle}}" ng-init="showPopup()">
+    <ion-content ng-init="CartshowPopup()" class="has-header">
+        <ion-slide-box auto-play="true" does-continue="true" style="height:110px">
+            <ion-slide>
+                <img src='img/banner/banner_img1.jpg' style="background-size:cover">
+            </ion-slide>
+
+            <ion-slide ng-repeat="sliderItem in slider">
+                <img src='{{sliderItem}}' style="background-size:cover">
+            </ion-slide>
+        </ion-slide-box>
+
+        <!-- <ion-scroll zooming="true" direction="y" style="height: 500px"> -->
+        <a href="#/tab/cart" class="button button-full button-positive" style="margin-top:1px;margin-bottom:2px;border-bottom:0x #fff solid">
+            <span style="float:left;font-weight:bold">Total to pay: &pound;{{total_amount | number:2}}</span>
+            <i class="icon ion-ios7-cart" style="font-size:36px;float:right"><span class="badge badge-assertive icon-badge">{{total_item}}</span></i>
+        </a>
+
+
+        <!--                 <ion-list  ng-repeat="item in datalist" scroll="true">
+                <ion-list ng-repeat="e in item.category">
+                <ion-item class="item-stable" style="padding:10px"
+                   ng-click="toggleGroup(e)"
+                ng-class="{active: isGroupShown(e)}">
+              <i class="icon" ng-class="isGroupShown(e) ? 'ion-minus' : 'ion-plus'"></i>
+            {{e.Category_Name}}
+          </ion-item>
+            <ion-item class="item-accordion"
+                   ng-repeat="m in e.Dish_Information.ItemList"
+                ng-show="isGroupShown(e)">
+            <div class="row">
+                <div class="col col-75 item-catagory-content">
+                    <h2>{{m.Dish_Name}} <i class="ion-heart" ng-click="addFav(m.Dish_id)"style="color:#9B8552;cursor:pointer" title="Add to your favourite dish"></i></h2>
+                    <p>{{m.Dish_Description}}</p>
+                    <p>
+
+<img style="width:17px;padding:2px" ng-repeat="alg in m.Dish_Allergens track by $index" ng-if="alg!='undefined'" src="img/{{alg}}.png"  >
+
+                    </p>
+                </div>
+                    <div class="col item-catagory-left-box">
+                        <p class="item-catagory-price" style="">&pound;{{m.Dish_Price}}</p>
+                        <button ng-if="m.options" ng-click="showOption(m.Dish_id,m.Dish_Name)" class="button button-small button-positive">
+                         OPTION  <i class="ion-chevron-right"></i>
+                        </button>
+            
+                        <div ng-if="m.options==null" class="itme-order-btn">
+                            <button ng-click="addItemInCart(m.Dish_id,m.Dish_Name,m.Dish_Price,'')" class="button button-small button-positive">
+                            ORDER  <i class="ion-plus-round"></i>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+          </ion-item>
+            </ion-list>
+           
+    </ion-list> -->
+        <div class="card" style="background-color:#444;text-align:center" ng-if="networkerror==1">
+            <i class="icon ion-ios7-cloud" style="font-size:40px;color:#fff"></i>
+            <p style="color:#fff">No internet connection available</p>
+        </div>
+        <!-- </ion-scroll> -->
+
+        <ion-scroll zooming="true" direction="y" style="height:400px;width:100%" ng-repeat="item in datalist">
+            <div class="card" ng-repeat="e in item.category" style="margin:0px;border-bottom:1px #999 solid">
+
+                <ion-item class="item-stable" style="margin:-2px" ng-click="toggleGroup(e)" ng-class="{active: isGroupShown(e)}">
+                    <i class="icon" ng-class="isGroupShown(e)"></i>&nbsp;{{e.Category_Name}}
+                </ion-item>
+                <ion-item ng-repeat="m in e.Dish_Information.ItemList" class="item-accordion" ng-show="isGroupShown(e)">
+                    <div class="row">
+                        <div class="col col-75 item-catagory-content">
+                            <h2>{{m.Dish_Name}} <a class="ion-heart"   ng-class="{sel: m.Dish_id == selected}" ng-click="addFav(m.Dish_id)" title="Add to your favourite dish"></a></h2>
+                            <p>{{m.Dish_Description}}
+                            </p>
+                            <p>
+
+                                <img style="width:17px;padding:2px" ng-repeat="alg in m.Dish_Allergens track by $index" ng-if="alg!='undefined'" src="img/{{alg}}.png">
+
+                            </p>
+                        </div>
+                        <div class="col item-catagory-left-box">
+                            <p class="item-catagory-price" style="">&pound;{{m.Dish_Price}}</p>
+                            <button ng-if="m.options" ng-click="showOption(m.Dish_id,m.Dish_Name)" class="button button-small button-positive">
+                                OPTION <i class="ion-chevron-right"></i>
+                            </button>
+
+                            <div ng-if="m.options==null" class="itme-order-btn">
+                                <button ng-click="addItemInCart(m.Dish_id,m.Dish_Name,m.Dish_Price,'')" class="button button-small button-positive">
+                                    ORDER <i class="ion-plus-round"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            
+            </div>
+        </ion-scroll>
+    </ion-content>
+</ion-view>

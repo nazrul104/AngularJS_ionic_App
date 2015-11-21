@@ -1,0 +1,71 @@
+<?php
+use PayPal\Api\Payer;
+use PayPal\Api\Details;
+use PayPal\Api\Amount;
+use PayPal\Api\Transaction;
+use PayPal\Api\Payment;
+use PayPal\Api\RedirectUrls;
+require 'paypal.php';
+//require 'db_connect.php';
+header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
+
+$data = json_decode(file_get_contents("php://input"));
+
+$payer= new Payer();
+$details= new Details();
+$amount= new Amount();
+$transaction= new Transaction();
+$payment= new Payment();
+$redirectUrls= new RedirectUrls();
+
+//$connect = new DbConnect();
+//$mysqli = $connect->db_connect();
+/*$query="SELECT total_amount, grand_total FROM restaurant_order WHERE id='".$data->order_id."' ORDER BY id DESC";
+			$result = $mysqli->query($query);
+			$mysqli->set_charset("utf8");
+			$row = $result->fetch_assoc();
+			$total_amount=$row['total_amount'];*/
+			
+$payer->setPaymentMethod('paypal');
+
+$amount->setCurrency('GBP')
+	   ->setTotal($data->grand_total);
+$transaction->setAmount($amount)
+			->setDescription('test');
+
+$payment->setIntent('sale')
+		->setPayer($payer)
+		->setTransactions([$transaction]);	
+		
+$rest_id=$data->rest_id;
+
+$redirectUrls->setReturnUrl('http://chefonline.co.uk/mobile/cms-api/success.php?rest_id=57')
+			 ->setCancelUrl('http://chefonline.co.uk/mobile/cms-api/cancel.php');
+			 
+$payment->setRedirectUrls($redirectUrls);
+
+try
+{
+	$status=0;
+	$payment->create($api);	
+	/*$hash=md5($payment->getId());
+	$_SESSION['paypal_hash']=$hash;
+	$paymentID=$payment->getId();
+	$query ="INSERT INTO paypal_paytment(order_id,user_id,payment_id,status)values('".$data->order_id."','".$data->user_id."','".$paymentID."','".$status."')";
+	$mysqli->query($query) or die($mysqli->error.__LINE__);*/
+}
+catch(PPConnectionException $e)
+{
+	header("Location:../");
+}
+foreach($payment->getLinks() as $link)
+{
+		if($link->getRel()=="approval_url")
+		{
+			$redirectUrl=$link->getHref();
+		}
+}
+echo $redirectUrl."|".$payment->getId();
+?>

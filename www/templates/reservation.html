@@ -1,0 +1,83 @@
+<ion-view class="registration-common-element" title="" hide-tabs>
+    <ion-content class="has-header">
+        <div class="card cartCard" style="margin-top:4px;">
+            <div class="item item-divider" style="padding-left:2px">
+                <span><i class="ion-calendar"></i> Make restaurant reservations</span>
+            </div>
+            <section class="ac-container">
+                <div class="list">
+                    <form class="registration-element-form" ng-submit="addReservation()">
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Name<span style="color: #EC1839"> *</span></span>
+                            <input type="text" ng-model="res.fname" autofocus placeholder="">
+                        </label>
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Email Address <span style="color: #EC1839"> *</span></span>
+                            <input type="email" ng-model="res.email" placeholder="">
+                        </label>
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Mobile No <span style="color: #EC1839"> *</span></span>
+                            <input type="tel" ng-model="res.mobile" placeholder="">
+                        </label>
+
+
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Date <span style="color: #EC1839"> *</span></span>
+
+                            <input type="date" ng-model="res.datepicker" name="datepicker" placeholder="Please Select Date" id="resdate" min="{{mindate}}">
+
+
+                        </label>
+                        <label class="item item-input item-select cart_view_input">
+                            <span class="input-label"> Time <span style="color: #EC1839"> *</span></span>
+                            <select ng-model="res.mytime" style="width:100%">
+                                <!--   <option>Select {{my.order_option}} Time</option> -->
+                                <option>12:30 PM</option>
+                                <option>12:45 PM</option>
+                                <option>01:00 PM</option>
+                                <option>01:15 PM</option>
+                                <option>01:30 PM</option>
+                                <option>05:30 PM</option>
+                                <option>05:45 PM</option>
+                                <option>06:00 PM</option>
+                                <option>06:15 PM</option>
+                                <option>06:30 PM</option>
+                                <option>06:45 PM</option>
+                                <option>07:00 PM</option>
+                                <option>07:15 PM</option>
+                                <option>07:30 PM</option>
+                                <option>07:45 PM</option>
+                                <option>08:00 PM</option>
+                                <option>08:15 PM</option>
+                                <option>08:30 PM</option>
+                                <option>08:45 PM</option>
+                                <option>09:00 PM</option>
+                                <option>09:15 PM</option>
+                                <option>09:30 PM</option>
+                                <option>09:45 PM</option>
+                                <option>10:00 PM</option>
+                                <option>10:15 PM</option>
+                                <option>10:30 PM</option>
+                                <option>10:45 PM</option>
+                                <option>11:00 PM</option>
+                            </select>
+                        </label>
+                        <label class="item item-input cart_view_input">
+                            <span class="input-label">Number of Guest<span style="color: #EC1839"> *</span> </span>
+                            <input type="number" ng-model="res.guest" placeholder="" ng-change="guestValidation()">
+                        </label>
+                        <label class="item item-input cart_view_input" >
+                            <span class="input-label">Special Request</span>
+                            <!--  <input type="text" ng-model="res.special_req" placeholder=""> -->
+                            <textarea ng-model="res.special_req" placeholder="" rows="2" cols="10"></textarea>
+                        </label>
+                        <div class="ptb-10">
+                            <input type="submit" style="Width:100%" value="SUBMIT" class="button button-full button-positive">
+                        </div>
+                    </form>
+                </div>
+
+            </section>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,187 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'g-',
+1 verbose cli   'ios-deploy' ]
+2 info using npm@2.14.7
+3 info using node@v4.2.1
+4 verbose install initial load of /Users/user/Desktop/ionic/TestPad/curry_world_a1_v1/package.json
+5 warn package.json test@1.0.0 No repository field.
+6 warn package.json test@1.0.0 No license field.
+7 verbose readDependencies loading dependencies from /Users/user/Desktop/ionic/TestPad/curry_world_a1_v1/package.json
+8 silly cache add args [ 'g-', null ]
+9 verbose cache add spec g-
+10 silly cache add args [ 'ios-deploy', null ]
+11 verbose cache add spec ios-deploy
+12 silly cache add parsed spec Result {
+12 silly cache add   raw: 'g-',
+12 silly cache add   scope: null,
+12 silly cache add   name: 'g-',
+12 silly cache add   rawSpec: '',
+12 silly cache add   spec: '*',
+12 silly cache add   type: 'range' }
+13 silly addNamed g-@*
+14 verbose addNamed "*" is a valid semver range for g-
+15 silly addNameRange { name: 'g-', range: '*', hasData: false }
+16 silly mapToRegistry name g-
+17 silly mapToRegistry using default registry
+18 silly mapToRegistry registry https://registry.npmjs.org/
+19 silly mapToRegistry uri https://registry.npmjs.org/g-
+20 verbose addNameRange registry:https://registry.npmjs.org/g- not in flight; fetching
+21 silly cache add parsed spec Result {
+21 silly cache add   raw: 'ios-deploy',
+21 silly cache add   scope: null,
+21 silly cache add   name: 'ios-deploy',
+21 silly cache add   rawSpec: '',
+21 silly cache add   spec: '*',
+21 silly cache add   type: 'range' }
+22 silly addNamed ios-deploy@*
+23 verbose addNamed "*" is a valid semver range for ios-deploy
+24 silly addNameRange { name: 'ios-deploy', range: '*', hasData: false }
+25 silly mapToRegistry name ios-deploy
+26 silly mapToRegistry using default registry
+27 silly mapToRegistry registry https://registry.npmjs.org/
+28 silly mapToRegistry uri https://registry.npmjs.org/ios-deploy
+29 verbose addNameRange registry:https://registry.npmjs.org/ios-deploy not in flight; fetching
+30 verbose request uri https://registry.npmjs.org/ios-deploy
+31 verbose request no auth needed
+32 info attempt registry request try #1 at 4:01:25 PM
+33 verbose request id da6108c0628d932c
+34 http request GET https://registry.npmjs.org/ios-deploy
+35 verbose request uri https://registry.npmjs.org/g-
+36 verbose request no auth needed
+37 info attempt registry request try #1 at 4:01:25 PM
+38 http request GET https://registry.npmjs.org/g-
+39 http 200 https://registry.npmjs.org/ios-deploy
+40 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+40 verbose headers   etag: '"33W06N958TKM5FZSWXU6YS6UE"',
+40 verbose headers   'content-type': 'application/json',
+40 verbose headers   'cache-control': 'max-age=60',
+40 verbose headers   'content-length': '31028',
+40 verbose headers   'accept-ranges': 'bytes',
+40 verbose headers   date: 'Sun, 15 Nov 2015 10:01:25 GMT',
+40 verbose headers   via: '1.1 varnish',
+40 verbose headers   age: '58',
+40 verbose headers   connection: 'keep-alive',
+40 verbose headers   'x-served-by': 'cache-sin6926-SIN',
+40 verbose headers   'x-cache': 'HIT',
+40 verbose headers   'x-cache-hits': '1',
+40 verbose headers   'x-timer': 'S1447581685.875402,VS0,VE0',
+40 verbose headers   vary: 'Accept' }
+41 silly get cb [ 200,
+41 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+41 silly get     etag: '"33W06N958TKM5FZSWXU6YS6UE"',
+41 silly get     'content-type': 'application/json',
+41 silly get     'cache-control': 'max-age=60',
+41 silly get     'content-length': '31028',
+41 silly get     'accept-ranges': 'bytes',
+41 silly get     date: 'Sun, 15 Nov 2015 10:01:25 GMT',
+41 silly get     via: '1.1 varnish',
+41 silly get     age: '58',
+41 silly get     connection: 'keep-alive',
+41 silly get     'x-served-by': 'cache-sin6926-SIN',
+41 silly get     'x-cache': 'HIT',
+41 silly get     'x-cache-hits': '1',
+41 silly get     'x-timer': 'S1447581685.875402,VS0,VE0',
+41 silly get     vary: 'Accept' } ]
+42 verbose get saving ios-deploy to /Users/user/.npm/registry.npmjs.org/ios-deploy/.cache.json
+43 silly addNameRange number 2 { name: 'ios-deploy', range: '*', hasData: true }
+44 silly addNameRange versions [ 'ios-deploy',
+44 silly addNameRange   [ '1.0.1',
+44 silly addNameRange     '1.0.2',
+44 silly addNameRange     '1.0.3',
+44 silly addNameRange     '1.0.4',
+44 silly addNameRange     '1.0.5',
+44 silly addNameRange     '1.0.6',
+44 silly addNameRange     '1.0.7',
+44 silly addNameRange     '1.0.8',
+44 silly addNameRange     '1.0.9',
+44 silly addNameRange     '1.1.0',
+44 silly addNameRange     '1.2.0',
+44 silly addNameRange     '1.3.0',
+44 silly addNameRange     '1.3.1',
+44 silly addNameRange     '1.3.2',
+44 silly addNameRange     '1.4.0',
+44 silly addNameRange     '1.5.0',
+44 silly addNameRange     '1.6.0',
+44 silly addNameRange     '1.6.1',
+44 silly addNameRange     '1.6.2',
+44 silly addNameRange     '1.6.3',
+44 silly addNameRange     '1.7.0',
+44 silly addNameRange     '1.8.0',
+44 silly addNameRange     '1.8.1',
+44 silly addNameRange     '1.8.2' ] ]
+45 silly addNamed ios-deploy@1.8.2
+46 verbose addNamed "1.8.2" is a plain semver version for ios-deploy
+47 silly mapToRegistry name ios-deploy
+48 silly mapToRegistry using default registry
+49 silly mapToRegistry registry https://registry.npmjs.org/
+50 silly mapToRegistry uri https://registry.npmjs.org/ios-deploy
+51 verbose addRemoteTarball https://registry.npmjs.org/ios-deploy/-/ios-deploy-1.8.2.tgz not in flight; adding
+52 verbose addRemoteTarball [ 'https://registry.npmjs.org/ios-deploy/-/ios-deploy-1.8.2.tgz',
+52 verbose addRemoteTarball   '7c03fe975a818c40c8d87a075da5335797de2d5e' ]
+53 info retry fetch attempt 1 at 4:01:26 PM
+54 info attempt registry request try #1 at 4:01:26 PM
+55 http fetch GET https://registry.npmjs.org/ios-deploy/-/ios-deploy-1.8.2.tgz
+56 http 404 https://registry.npmjs.org/g-
+57 verbose headers { 'content-type': 'application/json',
+57 verbose headers   'cache-control': 'max-age=0',
+57 verbose headers   'content-length': '2',
+57 verbose headers   'accept-ranges': 'bytes',
+57 verbose headers   date: 'Sun, 15 Nov 2015 10:01:26 GMT',
+57 verbose headers   via: '1.1 varnish',
+57 verbose headers   age: '0',
+57 verbose headers   connection: 'keep-alive',
+57 verbose headers   'x-served-by': 'cache-sin6923-SIN',
+57 verbose headers   'x-cache': 'MISS',
+57 verbose headers   'x-cache-hits': '0',
+57 verbose headers   'x-timer': 'S1447581685.874367,VS0,VE205' }
+58 silly get cb [ 404,
+58 silly get   { 'content-type': 'application/json',
+58 silly get     'cache-control': 'max-age=0',
+58 silly get     'content-length': '2',
+58 silly get     'accept-ranges': 'bytes',
+58 silly get     date: 'Sun, 15 Nov 2015 10:01:26 GMT',
+58 silly get     via: '1.1 varnish',
+58 silly get     age: '0',
+58 silly get     connection: 'keep-alive',
+58 silly get     'x-served-by': 'cache-sin6923-SIN',
+58 silly get     'x-cache': 'MISS',
+58 silly get     'x-cache-hits': '0',
+58 silly get     'x-timer': 'S1447581685.874367,VS0,VE205' } ]
+59 http fetch 200 https://registry.npmjs.org/ios-deploy/-/ios-deploy-1.8.2.tgz
+60 silly fetchAndShaCheck shasum 7c03fe975a818c40c8d87a075da5335797de2d5e
+61 verbose addTmpTarball /tmp/npm-1381-78dee991/registry.npmjs.org/ios-deploy/-/ios-deploy-1.8.2.tgz not in flight; adding
+62 verbose addTmpTarball already have metadata; skipping unpack for ios-deploy@1.8.2
+63 silly cache afterAdd ios-deploy@1.8.2
+64 verbose afterAdd /Users/user/.npm/ios-deploy/1.8.2/package/package.json not in flight; writing
+65 verbose afterAdd /Users/user/.npm/ios-deploy/1.8.2/package/package.json written
+66 verbose stack Error: Registry returned 404 for GET on https://registry.npmjs.org/g-
+66 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+66 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:242:14)
+66 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+66 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:198:22)
+66 verbose stack     at emitTwo (events.js:87:13)
+66 verbose stack     at Request.emit (events.js:172:7)
+66 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1063:14)
+66 verbose stack     at emitOne (events.js:82:20)
+66 verbose stack     at Request.emit (events.js:169:7)
+66 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1009:12)
+67 verbose statusCode 404
+68 verbose pkgid g-
+69 verbose cwd /Users/user/Desktop/ionic/TestPad/curry_world_a1_v1
+70 error Darwin 14.5.0
+71 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "g-" "ios-deploy"
+72 error node v4.2.1
+73 error npm  v2.14.7
+74 error code E404
+75 error 404 Registry returned 404 for GET on https://registry.npmjs.org/g-
+75 error 404
+75 error 404 'g-' is not in the npm registry.
+75 error 404 You should bug the author to publish it (or use the name yourself!)
+75 error 404 It was specified as a dependency of 'test'
+75 error 404
+75 error 404 Note that you can also install from a
+75 error 404 tarball, folder, http url, or git url.
+76 verbose exit [ 1, true ]

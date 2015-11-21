@@ -1,0 +1,19 @@
+ <ion-view title="Review">
+         <ion-content>
+    <ion-list>
+        <section class="ac-container">
+            
+            <div class="list card">
+                <div class="row responsive-sm">
+                    <div class="col about-us-box">
+                        <h2>Review</h2>
+                        <p>coming soon..</p>
+
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+    </ion-list>
+</ion-content>
+      </ion-view>

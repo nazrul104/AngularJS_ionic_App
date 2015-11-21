@@ -1,0 +1,23 @@
+      <ion-view title="Search">
+        <ion-content>
+    <ion-list>
+        <section class="ac-container">
+            
+            <div class="list">
+                <label class="item item-input">
+                  <span class="input-label">Username</span>
+                  <input type="text">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Password</span>
+                  <input type="password">
+                </label>
+                <div class="padding">
+                    <button class="button button-block login-btn">Login</button>
+                </div>
+            </div>
+            
+        </section>
+    </ion-list>
+</ion-content>
+      </ion-view>

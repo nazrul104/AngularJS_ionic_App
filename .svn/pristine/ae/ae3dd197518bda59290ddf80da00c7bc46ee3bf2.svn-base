@@ -1,0 +1,150 @@
+.clearfix {
+  *zoom: 1;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.hide-text {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+@-ms-viewport {
+  width: device-width;
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+
+.visible-phone {
+  display: none !important;
+}
+
+.visible-tablet {
+  display: none !important;
+}
+
+.hidden-desktop {
+  display: none !important;
+}
+
+.visible-desktop {
+  display: inherit !important;
+}
+@media (max-width: 767px) {
+  .hidden-desktop {
+    display: inherit !important;
+  }
+  .visible-desktop {
+    display: none !important;
+  }
+  .visible-phone {
+    display: inherit !important;
+  }
+  .hidden-phone {
+    display: none !important;
+  }
+}
+
+@media (max-width: 979px) {
+  .hidden-desktop {
+    display: inherit !important;
+  }
+  .visible-desktop {
+    display: none !important ;
+  }
+  .visible-tablet {
+    display: inherit !important;
+  }
+  .hidden-tablet {
+    display: none !important;
+  }
+
+}
+.visible-print {
+  display: none !important;
+}
+
+@media print {
+  .visible-print {
+    display: inherit !important;
+  }
+  .hidden-print {
+    display: none !important;
+  }
+}
+@media (max-width: 320px) {
+
+}
+@media (min-width: 1024px) {
+.logo-inner {
+  margin: 0 auto;
+  width: 15%;
+}
+}
+
+@media (min-width: 1200px) {
+
+}
+
+/*800px*/
+@media (max-width: 979px) {
+.logo-inner {
+  margin: 0 302px;
+  width: 25%;
+}
+}
+/*767px*/
+@media (max-width: 800px) {
+.logo-inner {
+  margin: 0 300px;
+  width: 27%;
+}
+}
+/*600px*/
+@media (max-width: 767px) {
+.logo-inner {
+  margin: 0 204px;
+  width: 32%;
+}
+}
+/*480px*/
+@media (max-width: 600px) {
+.logo-inner {
+  margin: 0 146px;
+  width: 42%;
+}
+}
+/*320px*/
+@media (max-width: 480px) {
+.logo-inner {
+  margin: 0 62px;
+  width: 62%;
+}
+}
+
+@media (min-width: 980px) {
+}

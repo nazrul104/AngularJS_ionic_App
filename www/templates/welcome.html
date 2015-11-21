@@ -1,0 +1,30 @@
+ <ion-view title="Welcome">
+         <ion-content>
+    <ion-list>
+     <div class="list card">
+
+  <div class="item item">
+   <a ng-click="showmodal()"> <i class="ion-person" style="font-size:46px"></i>
+   <a href="" style="float:right"> <i class="icon ion-ios7-telephone" style="font-size:26px"></i></a>
+
+    <h2>{{user.first_name}} {{user.last_name}}</h2>
+    <p>{{user.address1}}, {{user.address2}}{{user.postcode}} </p>
+    </a>
+  </div>
+
+  <div class="item item-body">
+        <div class="list">
+
+    <a class="item item"  ng-repeat="item in previousOrders">
+      <p style="font-weight:bold">Order No:{{item.order_no}} </p>
+       <span class="badge badge-assertive">&pound;{{item.grand_total | number:2}}</span>
+       <p>{{item.payment_method}} , {{item.payment_status}}</p>
+      <p>{{item.order_date}}</p>
+    </a>
+</div>
+  </div>
+</div>
+    </ion-list>
+{{content}}
+</ion-content>
+      </ion-view>

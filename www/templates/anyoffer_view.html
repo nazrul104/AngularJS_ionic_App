@@ -1,0 +1,73 @@
+     <ion-view title="">
+        <ion-content>
+        <div class="card cartCard" style="margin-top:2px">
+          <div class="item item-divider cartHeader">
+          <i class="ion-ios7-cart"></i>&nbsp;Your Order
+        </div>
+  
+
+          <div style="color:#fff;padding-top:5px;text-align:center"> 
+           
+          </div>
+
+<ion-scroll zooming="true" direction="y" class="cart_scroll">
+
+<!--      <table style="margin:5px;color:#fff;width:100%">
+      <thead>
+        <tr>
+         <td colspan="5">
+           <h4 style="color:#fff">Delivery Option:
+           {{my.order_option}}</h4>
+        </td>
+        </tr>
+          <tr>
+              <td colspan="5">
+                <h4 style="color:#fff">Offers available for you:</h4>
+              </td>
+           <tr>
+      </thead>
+      <tbody>
+          <tr ng-if="offers" ng-repeat="offItem in offers">
+            <td></td>
+            <td>{{offItem.offer_title}}</td>
+            <td><button class="button button-small button-assertive" ng-click="DoAccept(1,offItem.offer_title)">Accept</button></td>
+            <td>
+            </td>
+        </tr>         
+      </tbody>
+    </table> -->
+    <div style="margin:4px 0px 0px 10px;color:#444"><strong>Delivery Option: {{my.order_option}}</strong></div>
+     <div style="margin:4px 0px 0px 10px;color:#444"><strong>Offers available for you:</strong></div>
+      <div style="margin:10px;color:#000">
+    <p ng-if="offer_text"> <strong>Accepted:{{offer_text}}  </strong></p>
+    <p ng-if="discount_text"><strong> Accepted:{{discount_text}}</strong></p>
+    </div>
+    <br>
+    <ul>
+      <li  style="border-bottom:2px #cdcdcd solid;padding:5px 0px 5px;margin-left:10px;height:40px;color:#444;margin-right:2px" ng-if="offers" ng-repeat="offItem in offers">
+        <strong style="line-height:30px">{{offItem.offer_title}}</strong>
+        <!-- <button class="button  button-small" style="float:right;font-size:26px">Accept</button> -->
+        <button class="button button-small button-assertive"  style="float:right;margin-right:6px" ng-click="DoAccept(1,offItem.offer_title)">Accept</button>
+      </li>
+
+       <li  style="border-bottom:2px #cdcdcd solid;padding:5px 0px 5px;margin-left:10px;height:40px;color:#444;margin-right:2px"ng-if="discounts" ng-repeat="disItem in discounts">
+        <strong style="line-height:30px">{{disItem.discount_title | limitTo:25}}</strong>
+       
+        <button class="button button-small button-assertive"  style="float:right;margin-right:6px" ng-click="DoAccept(2,disItem.discount_title)">Accept</button>
+      </li>
+    </ul>
+   
+</ion-scroll>
+
+  <div class="item item-divider cartfooter">
+      <div style="padding:0px;margin:0px"><span style="line-height:0px"> Sub total: &pound; {{total_amount | number:2}}</span></div>
+      <div style="padding:0px;margin:0px"><span style="line-height:0px"> Discount : &pound; {{obtained_discount | number:2}}</span></div>
+      <div style="padding:0px;margin:0px"><span style="line-height:0px"> Total    : &pound; {{total_amount-obtained_discount | number:2}}</span></div>
+      <a ng-show="btn_placeorder" ng-click="gotoConfirmOrderPage()" class="button button-full  button-positive"  ng-if="isDeliverable==1">
+           CONTINUE
+      </a>
+  </div>
+
+</div>
+</ion-content>
+</ion-view>

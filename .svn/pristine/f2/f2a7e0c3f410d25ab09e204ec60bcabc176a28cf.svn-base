@@ -1,0 +1,22 @@
+<?php
+ define('PP_CONFIG_PATH', 'vendor/paypal/rest-api-sdk-php/tests');
+	use PayPal\Rest\ApiContext;
+	use PayPal\Auth\OAuthTokenCredential;
+  session_start();
+  require"vendor/autoload.php";
+  $api=new ApiContext(
+  new OAuthTokenCredential(
+	'AZAi0RFtvUH1cM2fIg1FJYbmDcM1WIMmnTm8y14j8h0l3kKF9mfehHXUo2CQQi7uqZc3V7_r-FBwKu_9',
+	'EEiP4_tynuTLdKKrNPQ-dLc8EnKOoefWoG_8Fm0f38ZSaFa1BjMycK1aXyyyzkzHFjVcwdbGWlWM_QW6'
+	));
+$api->setConfig([
+	'mode' => 'sandbox',
+	'http.ConnectionTimeOut' => 30,
+	'log.LogEnabled'=> true,
+	'log.FileName'=>'Log.txt',
+	'log.LogLevel'=>'Fine',
+	'validation.level'=>'log'
+	
+]);
+?>
+

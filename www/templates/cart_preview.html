@@ -1,0 +1,150 @@
+     <ion-view title="">
+        <ion-content class="has-header">
+        <div class="card cartCard" style="margin-top:2px;background-color: #210508;">
+  <div class="item item-divider cartHeader">
+  <i class="ion-ios7-cart"></i>&nbsp;Order in Details
+  </div>
+  
+  <div class="item item-text-wrap cartView" style="padding-bottom:8px;padding-top:8px">
+<!--     <div class="list">
+      <div class="list"> -->
+            <div class="list" style="margin-bottom:9px">
+            <label class="item item-input cart_view_input" style="border-bottom:1px;padding:0px">
+              <span class="input-label">{{my.order_option}} Date</span>
+            {{minDate}}
+            </label>
+
+              <label class="item item-input cart_view_input" style="padding:0px">
+              <span class="input-label">Order Option</span>
+             {{my.order_option}} <input  type="hidden" placeholder="Order Option"  ng-model="my.order_option">
+            </label>
+
+              <label class="item item-input cart_view_input" style="padding:0px">
+              <span class="input-label">Mobile</span>
+             {{user.mobile_no}} <input  type="hidden" placeholder="Order Option"  ng-model="my.order_option">
+            </label>
+          
+              <label  ng-if="isRestuarentOpen==false">      
+      <span class="input-label" style="color:#fff;font-size:15px;width:100%"><strong> {{my.order_option}} Time<strong></span>  
+  
+    <select ng-if="isRestuarentOpen==false"  ng-model="my.devtime" style="width:100%;border:1px #cdcdcd solid;padding:5px">
+            <option ng-repeat="(key,value) in availabletime" >{{value.time2}}</option>
+    </select>
+
+
+  </label>
+    <label class="item item-input cart_view_input" ng-if="isRestuarentOpen==true">
+              <span class="input-label">{{my.order_option}} Time</span>
+              <input   type="text" placeholder="Delivery Time"  ng-model="my.devtime">
+   </label>
+        <div >
+
+        
+      </div>
+       <!--  <div ng-if="restatus==0" style="padding:15px;text-align:center">
+            <i class="ion-ios7-cart"></i> EMPTY SHOPPING CART
+        </div> -->
+      </div>
+<div class="list" style="margin:0px;padding:0px">
+
+<!--   <label style="text-align:center" class="item item-radio cartOption" ng-if="my.order_option!='Collection'" >
+    <input type="radio" name="group"  ng-click="checkPaymentOption(0)" value="Cash">
+    <div class="item-content">
+     CASH
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label> -->
+
+  <label style="text-align:center" class="item item-radio">
+    <input type="radio" name="group" ng-click="checkPaymentOption(0)">
+    <div class="item-content">
+    CASH
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label>
+<!-- <hr style="border:1px"> -->
+<!--   <label style="text-align:center" class="item item-radio">
+    <input type="radio" name="group" ng-click="checkPaymentOption(1)">
+    <div class="item-content">
+     PAYPAL
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label> -->
+</div>
+
+  <span class="input-label" style="color:#fff;font-size:15px;width:100%"><strong>Special Request<strong></span>
+<label class="item item-textarea" style="border:0px #cdcdcd solid;padding:0">
+      <textarea ng-model="my.comments"   placeholder="Write your message here">
+        {{testvcode}}
+      </textarea>
+ </label>
+
+   
+
+           <input type="hidden" ng-model="paypal_transection_id"  placeholder="">
+
+        <!--         <form id = "paypal_checkout" ng-submit="" action = "https://www.sandbox.paypal.com/cgi-bin/webscr" target="_blank" method = "post" >
+               
+                <input name = "cmd" value = "_cart" type = "hidden">
+                <input name = "upload" value = "1" type = "hidden">
+                <input name = "no_note" value = "0" type = "hidden">
+                <input name = "bn" value = "PP-BuyNowBF" type = "hidden">
+                <input name = "tax" value = "0" type = "hidden">
+                <input name = "rm" value = "2" type = "hidden">
+                <input name = "business" value = "robin012biz@yahoo.com" type = "hidden">
+                <input name = "handling_cart" value = "0" type = "hidden">
+                <input type="hidden" name="cbt" value="Return to The Store">
+                <input type='hidden' name='rm' value='2'>
+                <input name = "currency_code" value = "GBP" type = "hidden">
+                <input name = "lc" value = "GB" type = "hidden">
+                <input name = "return" value = "http://localhost/API/success.php" type = "hidden">
+              
+                <input name = "custom" value = "" type = "hidden">
+        <div id="paypal_div_modified">
+                                                                                                    <div id="item_1" class="itemwrap">
+                                                        <input name="item_name_1" value="PLAIN PAPADUM" type="hidden">
+                                                        <input name="quantity_1" value="1" type="hidden">
+                                                        <input name="amount_1" value="0.8" type="hidden">
+                                                    </div>
+                                                                                                        <div id="item_2" class="itemwrap">
+                                                        <input name="item_name_2" value="SPICY PAPADUM" type="hidden">
+                                                        <input name="quantity_2" value="1" type="hidden">
+                                                        <input name="amount_2" value="0.8" type="hidden">
+                                                    </div>
+                                                                                                        <div id="item_3" class="itemwrap">
+                                                        <input name="item_name_3" value="MANGO CHUTNEY" type="hidden">
+                                                        <input name="quantity_3" value="1" type="hidden">
+                                                        <input name="amount_3" value="0.8" type="hidden">
+                                                    </div>
+                                                                                                        <div id="item_4" class="itemwrap">
+                                                        <input name="item_name_4" value="LIME PICKLE" type="hidden">
+                                                        <input name="quantity_4" value="1" type="hidden">
+                                                        <input name="amount_4" value="0.8" type="hidden">
+                                                    </div>
+                                                                                                        <div id="item_5" class="itemwrap">
+                                                        <input name="item_name_5" value="ONION SALAD" type="hidden">
+                                                        <input name="quantity_5" value="1" type="hidden">
+                                                        <input name="amount_5" value="0.8" type="hidden">
+                                                    </div>
+                                                                            
+                        <input name="discount_amount_cart" value="0.00" type="hidden">
+                        </div>
+                <input id = "ppcheckoutbtn" value = "CONFIRM ORDER" class = "button order-confirm comon_btn" type = "submit" onclick="ConfirmOrderPaypal(1);">
+                </form> -->
+
+                <input type="hidden" value="{{grand_amount}}" id="pidx">
+                
+    </div>
+  <div class="item item-divider cartfooter">
+     <div style="padding:0px;margin:0px"><span style="line-height:0px"> Sub total: &pound; {{total_amount | number:2}}</span></div>
+      <div style="padding:0px;margin:0px"><span style="line-height:0px"> Discount : &pound; {{obtained_discount | number:2}}</span></div>
+      <div style="padding:0px;margin:0px"><span style="line-height:0px"> Total    : &pound; {{total_amount-obtained_discount | number:2}}</span></div>
+      <input type="hidden" id="grndamount" value="{{total_amount-obtained_discount | number:2}}">
+        <a ng-click="confirmPlaceOrder()"  class="button button-full  button-positive"  ng-if="isDeliverable==1">
+       Confirm Order
+    </a>
+  </div>
+</div>
+</ion-content>
+
+</ion-view>

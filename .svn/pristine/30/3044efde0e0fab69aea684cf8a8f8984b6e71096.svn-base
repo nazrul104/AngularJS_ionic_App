@@ -1,0 +1,90 @@
+     <ion-view title="Registration">
+        <ion-content>
+    <ion-list>
+        <section class="ac-container">
+            
+            <div class="list card">
+                <label class="item item-input">
+                    <span class="input-label">First Name <span style="color: #EC1839"> *</span></span>
+                    <input type="text"  ng-model="registration.fname">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Last Name <span style="color: #EC1839"> *</span></span>
+                  <input type="text" ng-model="registration.lname">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Email Address <span style="color: #EC1839"> *</span></span>
+                  <input type="email" ng-model="registration.email">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Mobile No <span style="color: #EC1839"> *</span></span>
+                  <input type="text" ng-model="registration.mobile">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Telephone No </span>
+                  <input type="text" ng-model="registration.tel">
+                </label>
+                <label class="item item-input">
+                    <p>Please fill the date of birth or Aniversary date and receive offers for that specially occassion.</p>
+                </label>
+                <div class="list">
+                    <div class="item item-divider">
+                     Date of Birth
+                    </div>
+                    <a class="item" >
+                      <input type="text" ng-model="registration.postcode" placeholder="Day" style="width:50%;float:left">
+                      <input type="text" ng-model="registration.postcode" placeholder="Month" style="width:50%;float:left">
+                    </a>
+                      <div class="item item-divider">
+                     Aniversary Date
+                    </div>
+                    <a class="item" >
+                      <input type="text" ng-model="registration.postcode" placeholder="Day" style="width:50%;float:left">
+                      <input type="text" ng-model="registration.postcode" placeholder="Month" style="width:50%;float:left">
+                    </a>
+              </div>
+
+
+      
+                <label class="item item-input">
+                    <span class="input-label">Postcode <span style="color: #EC1839"> *</span></span>
+                    <input type="text" ng-model="registration.postcode">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Address 1 <span style="color: #EC1839"> *</span></span>
+                  <input type="text" ng-model="registration.address1">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Address 2 </span>
+                  <input type="text" ng-model="registration.address2">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Town/City <span style="color: #EC1839"> *</span></span>
+                  <input type="text" ng-model="registration.town">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">County </span>
+                  <input type="text" ng-model="registration.country">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Password <span style="color: #EC1839"> *</span></span>
+                  <input type="password" ng-model="registration.password">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label" style="padding:0;">&nbsp;</span>
+                    <p>Between 6 to 16 characters</p>
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Confirm Password <span style="color: #EC1839"> *</span></span>
+                  <input type="password" ng-model="registration.confirm.password">
+                </label>
+                
+                <div class="padding">
+                    <button class="button button-block login-btn" ng-click="registration()">CREATE MY ACCOUNT</button>
+                </div>
+            </div>
+            
+        </section>
+    </ion-list>
+</ion-content>
+      </ion-view>

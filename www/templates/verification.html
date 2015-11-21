@@ -1,0 +1,26 @@
+     <ion-view title="Order Verification">
+        <ion-content>
+
+        <div class="card cartCard">
+
+ <label class="item item-input cart_view_input" style="border-bottom:1px">
+              <span class="input-label">Verification Code</span>
+              <input type="number" placeholder="Enter your verification code" ng-model="verification_code2" 
+            name="datepicker" placeholder="Please Select Date">
+            </label>
+  <div class="item item-divider cartfooter">
+   
+    <a ng-click="confirmPlaceOrder()" id="buyNowBtn" class="button button-full button-positive">
+       Confirm Order
+    </a>
+  
+  </div>
+    </div>
+    <div class="card" style="background-color:#444;text-align:center" ng-if="networkerror==1">
+       <i class="icon ion-ios7-cloud" style="font-size:40px;color:#fff"></i>
+       <p style="color:#fff">No internet connection available</p>
+    </div>
+
+ 
+        </ion-content>
+      </ion-view>
